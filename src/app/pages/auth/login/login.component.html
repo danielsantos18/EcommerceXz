@@ -1,0 +1,89 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
+  <div class="position-relative row w-100 h-100 bg-gradient justify-content-center">
+    <div class="col-lg-4 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <div class="text-center">
+            <a routerLink="/home">
+              <img src="assets/images/logo-removebg-preview.png" class="align-middle m-2" alt="logo" />
+            </a>
+          </div>
+
+          <div class="or-border m-t-30">inicia sesión con tu cuenta</div>
+
+          <!-- Formulario de inicio de sesión -->
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="m-t-30">
+            <!-- Campo de correo electrónico -->
+            <div class="form-col" [class.show]="showInputs[0]">
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Correo Electrónico</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput placeholder="Correo Electrónico" formControlName="email" />
+                <mat-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                  <span *ngIf="email?.errors?.['required']" class="text-danger">El correo es requerido.</span>
+                  <span *ngIf="email?.errors?.['email']" class="text-danger">El correo no es válido.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Campo de contraseña -->
+            <div class="form-col" [class.show]="showInputs[1]">
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Contraseña"
+                  formControlName="password" />
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button"
+                  aria-label="Mostrar u ocultar contraseña">
+                  <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+                  <span *ngIf="password?.errors?.['required']" class="text-danger">La contraseña es requerida.</span>
+                  <span *ngIf="password?.errors?.['minlength']" class="text-danger">La contraseña debe tener al menos 6
+                    caracteres.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Checkbox de recordar dispositivo -->
+            <div class="d-flex align-items-center">
+              <mat-checkbox color="primary">Recordar dispositivo</mat-checkbox>
+              <a routerLink="/auth/forgot-password" class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14">
+                ¿Olvidaste tu contraseña?
+              </a>
+            </div>
+
+            <!-- Botón de iniciar sesión -->
+            <button mat-flat-button color="primary" class="w-100" [disabled]="loginForm.invalid">Iniciar sesión</button>
+          </form>
+
+          <div class="or-border m-t-30">o inicia sesión con </div>
+
+          <!-- Botones de inicio de sesión con Google y Facebook -->
+          <div class="row m-t-24 custom-row text-center"> <!-- Añadir text-center aquí -->
+            <div class="col-12 col-sm-6">
+              <button mat-stroked-button class="w-100 d-flex align-items-center justify-content-center">
+                <!-- Añadir justify-content-center aquí -->
+                <mat-icon fontIcon="google" class="m-r-8">google</mat-icon>
+                Iniciar sesión con Google
+              </button>
+            </div>
+            <div class="col-12 col-sm-6">
+              <button mat-stroked-button class="w-100 d-flex align-items-center justify-content-center">
+                <!-- Añadir justify-content-center aquí -->
+                <mat-icon fontIcon="facebook" class="m-r-8">facebook</mat-icon>
+                Iniciar sesión con Facebook
+              </button>
+            </div>
+          </div>
+
+          <!-- Enlace para registro de cuenta -->
+          <span class="d-block f-w-500 text-center m-t-24">
+            ¿Nuevo en nuestra tienda?
+            <a routerLink="/auth/register" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Crea una cuenta
+            </a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

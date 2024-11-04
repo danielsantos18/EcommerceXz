@@ -1,0 +1,123 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-gradient">
+  <div class="position-relative row w-100 h-100 justify-content-center">
+    <div class="col-lg-6 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <!-- Logo -->
+          <div class="text-center">
+            <img src="src\app\assets\images\logo-removebg-preview.png" alt="logo" />
+          </div>
+
+          <!-- Formulario de registro -->
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mt-4">
+            <div class="form-row">
+              <!-- First Name -->
+              <div class="form-col" [class.show]="showInputs[0]">
+                <mat-label class="mat-subtitle-2">First Name</mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput placeholder="First Name" formControlName="firstName" required />
+                  <mat-error *ngIf="firstName?.hasError('required')">First Name is required.</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Last Name -->
+              <div class="form-col" [class.show]="showInputs[1]">
+                <mat-label class="mat-subtitle-2">Last Name</mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput placeholder="Last Name" formControlName="lastName" required />
+                  <mat-error *ngIf="lastName?.hasError('required')">Last Name is required.</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Email -->
+              <div class="form-col" [class.show]="showInputs[2]">
+                <mat-label class="mat-subtitle-2">Email Address</mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput type="email" placeholder="Email" formControlName="email" required />
+                  <mat-error *ngIf="email?.hasError('required')">Email is required.</mat-error>
+                  <mat-error *ngIf="email?.hasError('email')">Invalid email format.</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Phone -->
+              <div class="form-col" [class.show]="showInputs[3]">
+                <mat-label class="mat-subtitle-2">Phone Number</mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput type="tel" placeholder="Phone Number" formControlName="phone" required />
+                  <mat-error *ngIf="phone?.hasError('required')">Phone number is required.</mat-error>
+                  <mat-error *ngIf="phone?.hasError('pattern')">Phone number must be 10 digits.</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Address -->
+              <div class="form-col" [class.show]="showInputs[4]">
+                <mat-label class="mat-subtitle-2">Address</mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput placeholder="Address" formControlName="address" />
+                </mat-form-field>
+              </div>
+
+              <!-- Password -->
+              <div class="form-col" [class.show]="showInputs[5]">
+                <mat-label class="mat-subtitle-2">Password</mat-label>
+                <mat-form-field appearance="outline">
+                  <input [type]="showPassword ? 'text' : 'password'" matInput placeholder="Password"
+                    formControlName="password" required />
+                  <mat-error *ngIf="registerForm.hasError('mismatch') && confirmPassword?.touched">Passwords do not
+                    match.</mat-error>
+                  <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                    <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="form-col" [class.show]="showInputs[6]">
+                <mat-label class="mat-subtitle-2">Confirm Password</mat-label>
+                <mat-form-field appearance="outline">
+                  <input [type]="showConfirmPassword ? 'text' : 'password'" matInput placeholder="Confirm Password"
+                    formControlName="confirmPassword" required />
+                  <mat-error *ngIf="registerForm.hasError('mismatch') && confirmPassword?.touched">Passwords do not
+                    match.</mat-error>
+                  <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+                    <mat-icon>{{ showConfirmPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button mat-flat-button color="primary" class="w-100 mt-4" [disabled]="!registerForm.valid">
+              Sign Up
+            </button>
+          </form>
+
+          <!-- Línea divisoria -->
+          <div class="or-border mt-4">or sign up with</div>
+
+          <!-- Botones de redes sociales -->
+          <div class="row mt-3 custom-row text-center">
+            <div class="col-12 col-sm-6 mb-4"> <!-- Añadir margen inferior para separación -->
+              <button mat-stroked-button class="w-100 d-flex align-items-center justify-content-center">
+                <mat-icon fontIcon="google" class="m-r-8">google</mat-icon>
+                Sign up with Google
+              </button>
+            </div>
+            <div class="col-12 col-sm-6 mb-4"> <!-- Añadir margen inferior para separación -->
+              <button mat-stroked-button class="w-100 d-flex align-items-center justify-content-center">
+                <mat-icon fontIcon="facebook" class="m-r-8">facebook</mat-icon>
+                Sign up with Facebook
+              </button>
+            </div>
+          </div>
+
+          <!-- Redirección al login -->
+          <span class="d-block fw-bold text-center mt-4">
+            Already have an Account?
+            <a [routerLink]="['/auth/login']" class="text-decoration-none text-primary fw-bold fs-6">Sign In</a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

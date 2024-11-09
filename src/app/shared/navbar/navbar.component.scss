@@ -1,0 +1,81 @@
+.mat-toolbar {
+    background-color: #f4ece1;
+    padding: 20px;
+}
+
+.mat-toolbar .logo img {
+    height: 50px;
+    width: 50px;
+}
+
+.mat-toolbar .spacer {
+    flex: 1;
+}
+
+a {
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+/* Ajustes para los botones */
+.custom-button {
+    margin: 0 5px;
+    position: relative;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    border-radius: 0.8em;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(to right, #000, #f4ece1);
+    overflow: hidden;
+    padding: 0.8em 1.2em 0.8em 1.05em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.custom-button span {
+    position: relative;
+    z-index: 10;
+    transition: color 0.3s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.custom-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 100%;
+    background: #ffffff;
+    transform: skew(30deg);
+    z-index: 0;
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+
+.custom-button:hover::before {
+    transform: translate3d(100%, 0, 0);
+}
+
+.custom-button:active {
+    transform: scaleY(0.90);
+}
+
+.custom-button mat-icon {
+    color: black;
+    transition: color 0.3s;
+}
+
+.custom-button:hover mat-icon {
+    color: white;
+    transition: color 0.3s;
+}
+
+.custom-button:hover span {
+    color: white;
+}

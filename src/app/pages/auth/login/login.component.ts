@@ -13,14 +13,14 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]], // Validación de correo
-      password: ['', [Validators.required, Validators.minLength(6)]] // Validación de contraseña
+      email: ['', [Validators.required, Validators.email]], 
+      password: ['', [Validators.required, Validators.minLength(6)]] 
     });
   }
 
   ngOnInit() {
-    this.showInputs = new Array(2).fill(false); // Inicializa con false para 5 campos
-    this.showInputsInOrder(); // Llama a la función para mostrar los inputs uno por uno
+    this.showInputs = new Array(2).fill(false);
+    this.showInputsInOrder(); 
   }
 
   get email() {
@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
   }
 
   showInputsInOrder() {
-    const inputsToShow = [0, 1]; // Índices de los campos a mostrar
+    const inputsToShow = [0, 1]; 
     inputsToShow.forEach((index) => {
       setTimeout(() => {
         this.showInputs[index] = true;
-      }, index * 300); // Retraso de 300 ms entre cada input
+      }, index * 300); 
     });
   }
 }

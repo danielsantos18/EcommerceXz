@@ -1,21 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component'; 
+import { HomeComponent } from './home.component';
 import { MaterialModule } from '../../shared/material/material.module';
+import { SharedModule } from '../../shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   declarations: [
-    HomeComponent // Mantén HomeComponent aquí
+    HomeComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     HomeRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   exports: [
-    HomeComponent,
-
+    HomeComponent
   ]
 })
 export class HomeModule { }

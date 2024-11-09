@@ -1,0 +1,21 @@
+<form class="otp-Form">
+    <span class="mainHeading">Enter OTP</span>
+    <p class="otpSubheading">We have sent a verification code to your mobile number</p>
+    <div class="inputContainer">
+        <input required="required" maxlength="1" type="text" class="otp-input" id="input1"
+            (input)="onInputChange($event, 1)" #input1>
+        <input required="required" maxlength="1" type="text" class="otp-input" id="input2"
+            (input)="onInputChange($event, 2)" #input2>
+        <input required="required" maxlength="1" type="text" class="otp-input" id="input3"
+            (input)="onInputChange($event, 3)" #input3>
+        <input required="required" maxlength="1" type="text" class="otp-input" id="input4"
+            (input)="onInputChange($event, 4)" #input1>
+
+    </div>
+
+    <button type="button" class="verifyButton" (click)="verifyOTP()">Verify</button>
+    <button type="button" class="exitBtn" (click)="exitOTP()">×</button>
+    <p class="resendNote">Didn't receive the code?
+        <button type="button" class="resendBtn" (click)="resendCode()">Resend Code</button>
+    </p>
+</form>

@@ -1,0 +1,197 @@
+/*=================================================== Estilos para el footer ================================== */
+.footer {
+    background-color: #212121;
+    color: white;
+    /* Establecer color blanco para todo el texto en el footer */
+    padding: 40px 20px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    font-family: Arial, sans-serif;
+    height: auto;
+    /* Deja que el footer tenga la altura necesaria según su contenido */
+    margin-top: auto;
+    /* Hace que el footer se quede al final */
+    box-sizing: border-box;
+    /* Asegura que el padding no cause desbordamiento */
+    overflow: hidden;
+    /* Evita el desbordamiento del contenido */
+}
+
+/* Títulos en el footer */
+.footer h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    /* Asegura que los títulos sean blancos */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Estilos para las columnas del footer */
+.footer .row-primary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.footer .column-about,
+.footer .column-links,
+.footer .column-subscribe {
+    flex: 1 1 22%;
+    /* Asegura que las columnas no se desborden y se adapten */
+    padding: 15px;
+}
+
+/* Limita el ancho de la columna "about" */
+.footer .column-about {
+    max-width: 350px;
+}
+
+.footer .column-links h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.column-subscribe {
+    width: 250px !important;
+}
+
+.footer .column-subscribe {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer .column-subscribe mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.footer .column-subscribe button {
+    width: 100%;
+    background-color: #ff4081;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.footer .column-subscribe button:hover {
+    background-color: #e040fb;
+}
+
+/*=================================================== Estilos para los íconos sociales ================================== */
+/* Estilo para los iconos SVG */
+.social-icons svg {
+    width: 36px;
+    /* Ajusta el tamaño */
+    height: 36px;
+    /* Ajusta el tamaño */
+    fill: #fff;
+    /* Color blanco para los iconos */
+}
+
+/* Container for the social media icons */
+.social {
+    display: flex;
+    justify-content: center;
+    /* Aligns icons horizontally */
+    align-items: center;
+    /* Centers icons vertically */
+    gap: 16px;
+    /* Spacing between the icons */
+}
+
+/* Style common for all social media icons */
+.social-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effect for icons */
+.social-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+/*=================================================== Estilos para los enlaces del menú ================================== */
+.column-links mat-list-item {
+    text-align: center;
+}
+
+.footer .column-links a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer .column-links a:hover {
+    color: #ff4081;
+    /* Mantiene el color de hover en un tono rosado */
+    text-decoration: underline;
+}
+
+/* Estilo para el texto en el footer */
+.footer p {
+    color: white;
+    font-size: 0.9rem;
+    margin: 20px 0 0;
+    text-align: center;
+}
+
+/*=================================================== Estilos para la fila de copyright ================================== */
+.footer .row-copyright {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/*=================================================== Estilos para pantallas pequeñas ================================== */
+@media (max-width: 768px) {
+    .footer .row-primary {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer .column-about,
+    .footer .column-links,
+    .footer .column-subscribe {
+        flex: 1 1 100%;
+        padding: 20px;
+    }
+
+    .footer .column-links {
+        text-align: center;
+    }
+
+    .footer .social {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .footer .column-subscribe {
+        background-color: #333;
+        border-radius: 8px;
+        box-shadow: none;
+    }
+}
+
+/* Clase para asegurar que los elementos ocupen el 100% de su contenedor */
+.full-width {
+    width: 100%;
+}
+
+/*=================================================== Estilos para la estructura de la página ==================== */
+
+/* Hace que el contenido principal ocupe todo el espacio disponible */
+.content {
+    flex-grow: 1;
+    /* Permite que el contenido principal ocupe el espacio restante */
+}

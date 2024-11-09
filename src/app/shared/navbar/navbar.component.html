@@ -1,1 +1,28 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+    <span class="logo">
+        <img src="assets/Logo/logo1.png" alt="Logo" class="logo-img">
+    </span>
+
+    <a>ECOMMERCE_Xz</a>
+    
+    <span class="spacer"></span>
+
+    <!-- Botones de navegación -->
+    <button mat-button routerLink="/home" class="custom-button">
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
+    </button>
+    <button mat-button routerLink="/categories" class="custom-button">
+        <mat-icon>dns</mat-icon>
+        <span>Categorias</span>
+    </button>
+    <button mat-button routerLink="/perfil" class="custom-button">
+        <mat-icon>account_circle</mat-icon>
+        <span>Perfil de usuario</span>
+    </button>
+    <button mat-button routerLink="/cart" class="custom-button">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Carrito</span>
+    </button>
+    
+</mat-toolbar>

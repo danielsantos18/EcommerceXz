@@ -1,0 +1,29 @@
+<mat-dialog-content>
+    <div class="product-detail-container">
+        <div class="product-detail-header">
+            <h2>{{ data.name }}</h2>
+            <p class="price">{{ data.price | currency }}</p>
+        </div>
+
+        <div class="product-detail-body">
+            <div class="image-container">
+                <img [src]="data.image" alt="{{ data.name }}" class="product-image">
+            </div>
+
+            <div class="description-container">
+                <h3>Descripción</h3>
+                <p>{{ data.description }}</p>
+                <p><strong>Categoría:</strong> {{ data.category | titlecase }}</p>
+                <p><strong>Subcategoría:</strong> {{ data.subcategory | titlecase }}</p>
+                <p [ngClass]="{'available': data.available, 'unavailable': !data.available}">
+                    <strong>{{ data.available ? 'Disponible' : 'No Disponible' }}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="close()">Cerrar</button>
+    <button mat-raised-button color="accent" (click)="addToCart()">Añadir al Carrito</button>
+</mat-dialog-actions>

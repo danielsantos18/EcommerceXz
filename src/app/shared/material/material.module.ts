@@ -8,6 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -18,7 +25,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     MatFormFieldModule,
     MatToolbarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatListModule,
+    MatSliderModule,
+    MatDialogModule,
+    MatMenuModule,
     
   ],
   exports: [
@@ -28,7 +41,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     MatFormFieldModule,
     MatToolbarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatListModule,
+    MatSliderModule,
+    MatDialogModule
+    
+
   ]
 })
 export class MaterialModule { }

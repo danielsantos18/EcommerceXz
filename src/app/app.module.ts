@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
-import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { HomeComponent } from './pages/home/home.component'; // Asegúrate de incluir HomeComponent
 import { MaterialModule } from './shared/material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { ProductDetailComponent } from './pages/product/product-detail/product-detail.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    FooterComponent,
-   
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,7 +21,8 @@ import { MaterialModule } from './shared/material/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    
+    BrowserAnimationsModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -27,37 +27,103 @@
   background-color: white;
   /* Animación de entrada */
   opacity: 0;
+  margin: 0 auto;
   transform: translateY(-20px);
   animation: fadeInSlideDown 0.5s ease-out forwards;
 }
 
-/* Imagen del logo en el centro */
-.text-center img {
-  max-width: 100px;
+/* Estilos de animación para el mat-card */
+.boxed-auth {
+  width: 600%;
+  max-width: 480px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Contenedor que usará Flexbox */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* Ancho completo del contenedor */
+}
+
+/* Imagen */
+.image-container img {
+  width: 120px;
+  object-fit: contain;
+  /* Asegura que la imagen conserve su proporción */
 }
 
 /* Botones de redes sociales */
-.custom-row {
+.flex-row {
   display: flex;
-  justify-content: center;
-  /* Centra horizontalmente los botones */
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
   margin-top: 20px;
-  /* Incrementa el margen superior para mayor separación */
 }
 
-.custom-row .col-12,
-.custom-row .col-sm-6 {
-  padding: 0 10px;
-  /* Padding lateral para separación */
-  margin-bottom: 20px;
-}
-
-button.mat-stroked-button {
-  border: 1px solid #ccc;
-  padding: 8px;
-  font-weight: 800;
+/* Estilos generales para los botones */
+.btn {
   display: flex;
-  align-items: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: capitalize;
+  padding: 0 15px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all .3s ease;
+}
+
+/* Estilo para el botón de Google */
+.btn.google {
+  background-color: #ffffff;
+  color: #4285F4;
+  border: 1px solid #4285F4;
+  transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
+}
+
+.btn.google:hover {
+  background-color: #0c0909;
+  color: #ffffff;
+  border-color: #4285F4;
+  transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
+}
+
+/* Estilo para el botón de Facebook */
+.btn.facebook {
+  background-color: #ffffff;
+  color: #1877F2;
+  border: 1px solid #1877F2;
+  transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
+}
+
+.btn.facebook:hover {
+  background-color: #0c0909;
+  color: #ffffff;
+  border-color: #1877F2;
+  transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
+}
+
+/* Iconos dentro de los botones */
+.google-icon,
+.facebook-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Si el tamaño de los botones o los iconos es más grande */
+.btn svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* Línea de separación entre opciones */
@@ -105,7 +171,7 @@ mat-card-content {
 }
 
 input[matInput] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 /* Recordar dispositivo y enlace de recuperación de contraseña */
@@ -119,10 +185,12 @@ a.text-primary {
   font-size: 14px;
   text-decoration: none;
   margin-left: center;
+  transition: all .24s ease;
 }
 
 a.text-primary:hover {
   text-decoration: underline;
+  transition: all .24s ease;
 }
 
 /* Botón de inicio de sesión */
@@ -135,37 +203,12 @@ button.mat-flat-button {
   color: white;
 }
 
-/* Pie de la página de login */
-span.d-block {
-  font-weight: 500;
+.d-flex.align-items-center.justify-content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin-top: 24px;
-  color: #0c0909;
-}
-
-a.text-decoration-none.text-primary {
-  color: #007bff;
-  font-weight: 800;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-a.text-decoration-none.text-primary:hover {
-  text-decoration: underline;
-}
-
-/* Estilos de animación para el mat-card */
-.boxed-auth {
-  width: 600%;
-  max-width: 480px;
-  margin: 0 auto;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-
-  /* Añadir animación de opacidad y transformación */
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: fadeInSlideDown 0.5s ease-out forwards;
+  width: 100%;
 }
 
 @keyframes fadeInSlideDown {

@@ -1,0 +1,126 @@
+<app-navbar></app-navbar>
+<div class="profile-card" [class.expanded]="isEditMode">
+    <div class="card">
+        <div class="content">
+            <!-- Icono de perfil en lugar de imagen -->
+            <div class="profile-pic">
+                <i class="fas fa-user"></i> <!-- Icono de usuario con Font Awesome -->
+            </div>
+
+            <!-- Detalles del perfil (modo solo lectura) -->
+            <div class="profile-details" *ngIf="!isEditMode">
+                <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+
+                <!-- Contenedor de la información del perfil -->
+                <div class="profile-info">
+                    <div class="info-box">
+                        <span>Email:</span>
+                        <p>{{ user.email }}</p>
+                    </div>
+
+                    <div class="info-box">
+                        <span>Phone:</span>
+                        <p>{{ user.phoneNumber }}</p>
+                    </div>
+
+                    <div class="info-box">
+                        <span>Address:</span>
+                        <p>{{ user.address }}</p>
+                    </div>
+                </div>
+                <!-- Botón para editar perfil -->
+                <button class="edit-btn" (click)="toggleEditMode()">
+                    <mat-icon>edit</mat-icon> <span>Editar Perfil</span>
+                </button>
+            </div>
+            <!-- Formulario de edición -->
+            <form *ngIf="isEditMode" [formGroup]="perfilForm" (ngSubmit)="saveChanges()">
+                <h3>Bienvenido al apartado de edición de perfil</h3>
+
+                <!-- Mensajes de éxito o error -->
+                <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+                <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" formControlName="firstName" class="form-control" />
+                    <div *ngIf="perfilForm.get('firstName')?.hasError('required')" class="error-message">
+                        El primer nombre es obligatorio.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" formControlName="lastName" class="form-control" />
+                    <div *ngIf="perfilForm.get('lastName')?.hasError('required')" class="error-message">
+                        El apellido es obligatorio.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" formControlName="email" class="form-control" />
+                    <div *ngIf="perfilForm.get('email')?.hasError('required')" class="error-message">
+                        El correo electrónico es obligatorio.
+                    </div>
+                    <div *ngIf="perfilForm.get('email')?.hasError('email')" class="error-message">
+                        El correo electrónico no tiene un formato válido.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" />
+                    <div *ngIf="perfilForm.get('phoneNumber')?.hasError('required')" class="error-message">
+                        El número de teléfono es obligatorio.
+                    </div>
+                    <div *ngIf="perfilForm.get('phoneNumber')?.hasError('pattern')" class="error-message">
+                        El número de teléfono debe tener 10 dígitos.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">City</label>
+                    <input type="text" id="address" formControlName="address" class="form-control" />
+                    <div *ngIf="perfilForm.get('address')?.hasError('required')" class="error-message">
+                        La dirección es obligatoria.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" formControlName="address" class="form-control" />
+                    <div *ngIf="perfilForm.get('address')?.hasError('required')" class="error-message">
+                        La dirección es obligatoria.
+                    </div>
+                </div>
+
+                <!-- Campos de Contraseña y Confirmación -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" formControlName="password" class="form-control" />
+                    <div *ngIf="perfilForm.get('password')?.hasError('minlength')" class="error-message">
+                        La contraseña debe tener al menos 6 caracteres.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" formControlName="confirmPassword"
+                        class="form-control" />
+                    <div *ngIf="perfilForm.hasError('notMatching')" class="error-message">
+                        Las contraseñas no coinciden.
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" [disabled]="perfilForm.invalid || loading" class="btn-save">
+                        <span *ngIf="loading">Guardando...</span>
+                        <span *ngIf="!loading">Guardar Cambios</span>
+                    </button>
+                    <button type="button" (click)="cancelEdit()" class="btn-cancel">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

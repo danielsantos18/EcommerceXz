@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      city: [''],
       address: [''],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
@@ -64,7 +65,7 @@ export class RegisterComponent implements OnInit {
 
   showInputsInOrder() {
     // Se mantienen los mismos índices para cada input
-    const inputsToShow = [0, 1, 2, 3, 4, 5, 6];
+    const inputsToShow = [0, 1, 2, 3, 4, 5, 6,7];
     inputsToShow.forEach((index) => {
       setTimeout(() => {
         this.showInputs[index] = true;

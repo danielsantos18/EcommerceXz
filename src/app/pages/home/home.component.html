@@ -1,117 +1,148 @@
-<!-- Topbar -->
-<div class="topbar">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-md-12 col-12">
-            </div>
-            <div class="col-lg-7 col-md-12 col-12">
-                <div class="right-content">
-                </div>
-                <div>
-                    <title>XZ_Xiomara-Zabala</title>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Header Inner -->
-<div class="header-inner">
-    <div class="container">
-        <div class="cat-nav-head">
-            <div class="row">
-                <div class="col-lg-8 col-md-7 col-12">
-                    <div class="search-bar-top">
-                        <div class="search-bar">
-                            <select>
-                                <option selected="selected">All Category</option>
-                                <option>watch</option>
-                                <option>mobile</option>
-                                <option>kid’s item</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-12">
-                    <div class="right-bar">
-                        <!-- Search Form -->
-                        <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="sinlge-bar shopping">
-                            <a href="#" class="single-icon"><i class="ti-bag"></i> <span
-                                    class="total-count">2</span></a>
-                            <!-- Shopping Item -->
-                            <div class="shopping-item">
-                                <div class="dropdown-cart-header">
-                                    <span>2 Items</span>
-                                    <a href="#">View Cart</a>
-                                </div>
-                                <ul class="shopping-list">
-                                    <li>
-                                        <a href="#" class="remove" title="Remove this item"><i
-                                                class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70"
-                                                alt="#"></a>
-                                        <h4><a href="#">Woman Ring</a></h4>
-                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="remove" title="Remove this item"><i
-                                                class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70"
-                                                alt="#"></a>
-                                        <h4><a href="#">Woman Necklace</a></h4>
-                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                    </li>
-                                </ul>
-                                <div class="bottom">
-                                    <div class="total">
-                                        <span>Total</span>
-                                        <span class="total-amount">$134.00</span>
-                                    </div>
-                                    <a href="checkout.html" class="btn animate">Checkout</a>
-                                </div>
-                            </div>
-                            <!--/ End Shopping Item -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Barra de Navegación con Filtro de Búsqueda -->
 <mat-toolbar color="primary">
     <span class="logo">
-        <img src="assets/logo.png" alt="EcommersXZ" height="40">
+        <img src="assets/Logo/logo1.png" alt="Logo" class="logo-img">
     </span>
-    <span class="spacer"></span>
-    <button mat-button routerLink="/home">Inicio</button>
-    <button mat-button routerLink="/categories">Categorías</button>
-    <button mat-button routerLink="/cart">Carrito</button>
-    <button mat-button routerLink="/profile">Perfil de Usuario</button>
-    <button mat-button routerLink="/Login">Login</button>
+
     <span class="spacer"></span>
 
-    <!-- Campo de Búsqueda con Ícono -->
-    <mat-form-field appearance="outline" class="search-field">
-        <mat-label>Buscar productos.</mat-label>
-        <mat-icon matPrefix>search</mat-icon>
-        <input matInput type="text" (input)="searchProducts($event)">
+    <form class="form">
+        <label for="search">
+            <input required="" autocomplete="off" placeholder="search your chats" id="search" type="text"
+                (input)="searchProducts($event)">
+            <div class="icon">
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                        stroke-linecap="round"></path>
+                </svg>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+            </div>
+            <button type="reset" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        fill-rule="evenodd"></path>
+                </svg>
+            </button>
+        </label>
+    </form>
+
+    <span class="spacer"></span>
+
+    <!-- Botones de navegación -->
+    <button mat-button routerLink="/home" class="custom-button">
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
+    </button>
+    
+    
+    
+    <div class="categories-container">
+        <!-- Botón de Categorías -->
+        <button mat-button routerLink="/home" class="custom-button" (mouseover)="toggleCategoriesDropdown(true)"
+            (mouseout)="toggleCategoriesDropdown(false)">
+            <mat-icon>dns</mat-icon>
+            <span>Categorías</span>
+        </button>
+    
+        <!-- Dropdown de categorías -->
+        <div *ngIf="showCategories" class="categories-dropdown">
+            <ul>
+                <li *ngFor="let category of categories" (click)="filterProducts(category)">
+                    {{ category }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Listado de productos -->
+    <div *ngIf="filteredProducts.length > 0">
+        <div *ngFor="let product of filteredProducts">
+            <!-- Mostrar los productos filtrados aquí, con detalle y añadir al carrito -->
+        </div>
+    </div>
+    
+    <button mat-button routerLink="/perfil" class="custom-button">
+        <mat-icon>account_circle</mat-icon>
+        <span>Perfil de usuario</span>
+    </button>
+    <button mat-button routerLink="/cart" class="custom-button">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Carrito</span>
+    </button>
+    <button mat-button routerLink="/login" class="custom-button">
+        <mat-icon>login</mat-icon>
+        <span>salir</span>
+    </button>
+    </mat-toolbar>
+
+<!-- banner -->
+<div class="banner-carousel">
+    <!-- Flecha izquierda para retroceder -->
+    <button class="carousel-arrow carousel-arrow-left" (click)="previousImage()">
+        <i class="fas fa-chevron-left"></i> <!-- Icono de flecha hacia la izquierda -->
+    </button>
+
+    <!-- Flecha derecha para avanzar -->
+    <button class="carousel-arrow carousel-arrow-right" (click)="nextImage()">
+        <i class="fas fa-chevron-right"></i> <!-- Icono de flecha hacia la derecha -->
+    </button>
+
+    <!-- Contenedor de imágenes del carrusel -->
+    <div class="carousel-container">
+        <div class="carousel-inner" [ngStyle]="{ 'transform': 'translateX(' + (-100 * currentImageIndex) + '%)' }">
+            <img *ngFor="let image of images" [src]="image" alt="Imagen del banner" class="carousel-image">
+        </div>
+
+        <!-- Puntos de navegación -->
+        <div class="carousel-dots">
+            <span *ngFor="let image of images; let i = index" [ngClass]="{'active-dot': currentImageIndex === i}"
+                class="dot" (click)="goToImage(i)">
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<!-- Filtros -->
+<div *ngIf="openFilters" class="open-filters">
+    <mat-form-field appearance="fill">
+        <mat-label>Filtrar por categoría</mat-label>
+        <mat-select [(value)]="selectedCategory">
+            <mat-option value="men">Ropa de Hombre</mat-option>
+            <mat-option value="women">Ropa de Mujer</mat-option>
+            <mat-option value="kids">Ropa para Niños</mat-option>
+            <mat-option value="accessories">Accesorios</mat-option>
+        </mat-select>
     </mat-form-field>
 
-    <button mat-raised-button color="accent" (click)="openFilters()">Filtros</button>
-</mat-toolbar>
+    <!-- Filtros por subcategoría (solo visible cuando se selecciona categoría) -->
+    <mat-form-field *ngIf="selectedCategory && selectedCategory !== 'accessories'" appearance="outline">
+        <mat-label>Filtrar por subcategoría</mat-label>
+        <mat-select (selectionChange)="filterProducts(selectedCategory, $event.value)">
+            <mat-option *ngIf="selectedCategory === 'men'" value="tshirt">Camisetas</mat-option>
+            <mat-option *ngIf="selectedCategory === 'men'" value="pants">Pantalones</mat-option>
+            <mat-option *ngIf="selectedCategory === 'women'" value="tshirt">Camisetas</mat-option>
+            <mat-option *ngIf="selectedCategory === 'women'" value="pants">Pantalones</mat-option>
+            <mat-option *ngIf="selectedCategory === 'kids'" value="tshirt">Camisetas</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<!-- Botón para Mostrar/Ocultar Filtros -->
+ 
+<button mat-raised-button color="accent" (click)="toggleFilters()">
+    {{ openFilters ? 'Ocultar Filtros' : 'Filtrado más popular' }}
+</button>
 
 <!-- Sección de Productos Destacados -->
 <div class="products-container" *ngIf="!showProductDetail">
-    <mat-card class="product-card" *ngFor="let product of products" (click)="viewProductDetail(product)">
-        <img mat-card-image [src]="product.image" alt="{{ product.name }}">
+    <mat-card class="product-card" *ngFor="let product of filteredProducts" (click)="openModal(product)">
+        <img [src]="product.image" alt="{{ product.name }}">
         <mat-card-content>
             <h2>{{ product.name }}</h2>
             <p>Precio: {{ product.price | currency }}</p>
@@ -121,155 +152,4 @@
         </mat-card-content>
     </mat-card>
 </div>
-
-<!-- Vista Detallada del Producto -->
-<div class="product-detail-container" *ngIf="showProductDetail && selectedProduct">
-    <mat-card>
-        <img mat-card-image [src]="selectedProduct.image" alt="{{ selectedProduct.name }}">
-        <mat-card-content>
-            <h1>{{ selectedProduct.name }}</h1>
-            <p>{{ selectedProduct.price | currency }}</p>
-            <p>{{ selectedProduct.description }}</p>
-            <button mat-raised-button color="primary" (click)="addToCart(selectedProduct)">Agregar al Carrito</button>
-            <button mat-button (click)="closeProductDetail()">Regresar</button>
-        </mat-card-content>
-    </mat-card>
-</div>
-
-<!-- Start Shop Newsletter -->
-<section class="shop-newsletter section">
-    <div class="container">
-        <div class="inner-top">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 col-12">
-                    <!-- Start Newsletter Inner -->
-                    <div class="inner">
-                        <h4>Newsletter</h4>
-                        <p>Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                            <input name="EMAIL" placeholder="Your email address" required="" type="email">
-                            <button class="btn">Subscribe</button>
-                        </form>
-                    </div>
-                    <!-- End Newsletter Inner -->
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Shop Newsletter -->
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close"
-                        aria-hidden="true"></span></button>
-            </div>
-            <div class="modal-body">
-                <div class="row no-gutters">
-                    <div class="col-lg-6 offset-lg-3 col-12">
-                        <h4
-                            style="margin-top:100px;font-size:14px; font-weight:500; color:#F7941D; display:block; margin-bottom:5px;">
-                            Eshop Free Lite</h4>
-                        <h3 style="font-size:30px;color:#333;">Currently You are using free lite Version of Eshop.</h3>
-                        <p style="display:block; margin-top:20px; color:#888; font-size:14px; font-weight:400;">Please,
-                            purchase full version of the template to get all pages, features and commercial license</p>
-                        <div class="button" style="margin-top:30px;">
-                            <a href="https://wpthemesgrid.com/downloads/eshop-ecommerce-html5-template/" target="_blank"
-                                class="btn" style="color:#fff;">Buy Now!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end -->
-
-<!-- Start Footer Area -->
-<footer class="footer">
-    <!-- Footer Top -->
-    <div class="footer-top section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-md-6 col-12">
-                    <!-- Single Widget -->
-                    <div class="single-footer about">
-                        <div class="logo">
-                            <a href="index.html"><img src="images/logo2.png" alt="#"></a>
-                        </div>
-                        <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros
-                            eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis
-                            luctus, metus.</p>
-                        <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span>
-                        </p>
-                    </div>
-                    <!-- End Single Widget -->
-                </div>
-                <div class="col-lg-2 col-md-6 col-12">
-                    <!-- Single Widget -->
-                    <div class="single-footer links">
-                        <h4>Information</h4>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Faq</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Help</a></li>
-                        </ul>
-                    </div>
-                    <!-- End Single Widget -->
-                </div>
-                <div class="col-lg-2 col-md-6 col-12">
-                    <!-- Single Widget -->
-                    <div class="single-footer links">
-                        <h4>Customer Service</h4>
-                        <ul>
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Money-back</a></li>
-                            <li><a href="#">Returns</a></li>
-                            <li><a href="#">Shipping</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                    <!-- End Single Widget -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Widget -->
-                    <div class="single-footer social">
-                        <h4>Get In Touch</h4>
-                        <div class="contact">
-                            <ul>
-                                <li>NO. 342 - London Oxford Street.</li>
-                                <li>012 United Kingdom.</li>
-                                <li>+032 3456 7890</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Single Widget -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Footer Top -->
-    <div class="copyright">
-        <div class="container">
-            <div class="inner">
-                <div class="row">
-                    <div class="col-lg-6 col-12">
-                        <div class="left">
-                            <p>Ziomara_Zabala</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-12">
-                        <div class="right">
-                            <img src="images/payments.png" alt="#">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+<app-footer></app-footer>

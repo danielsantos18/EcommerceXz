@@ -1,10 +1,23 @@
 /* Contenedor principal de la página de registro */
 .blank-layout-container {
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Estilo del cuadro de registro con animación de entrada */
+.boxed-auth {
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    background-color: white;
+    opacity: 0;
+    padding: 10px;
+    margin: 0 auto;
+    transform: translateY(-20px);
+    animation: fadeInSlideDown 0.5s ease-out forwards;
     box-sizing: border-box;
 }
 
@@ -18,19 +31,45 @@
     align-items: center;
 }
 
-/* Estilo del cuadro de registro con animación de entrada */
-.boxed-auth {
+//imagen
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 700px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    padding: 32px;
-    background-color: white;
+    /* Ancho completo del contenedor */
+}
 
-    /* Animación de entrada */
-    opacity: 0;
-    transform: translateY(-20px);
-    animation: fadeInSlideDown 0.5s ease-out forwards;
+.text-center img {
+    width: 120px;
+    object-fit: contain;
+}
+
+
+/* Línea de separación entre opciones */
+.or-border {
+    position: relative;
+    text-align: center;
+    margin: 10px;
+    color: #666;
+}
+
+.or-border::before,
+.or-border::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.or-border::before {
+    left: 0;
+}
+
+.or-border::after {
+    right: 0;
 }
 
 @keyframes fadeInSlideDown {
@@ -45,61 +84,74 @@
     }
 }
 
-/* Centrado de logo */
-img {
-    width: 100px;
-}
-
 /* Botones de redes sociales */
-.custom-row {
+.flex-row {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
     margin-top: 20px;
-    /* Incrementa el margen superior para mayor separación */
 }
 
-.custom-row .col-12,
-.custom-row .col-sm-6 {
-    padding: 0 10px;
-    /* Padding lateral para separación */
-    margin-bottom: 20px;
-}
-
-button.mat-stroked-button {
-    border: 1px solid #ccc;
-    padding: 10px;
-    font-weight: 800;
+/* Estilos generales para los botones */
+.btn {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: capitalize;
+    padding: 0 15px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all .3s ease;
 }
 
-/* Separador entre opciones */
-.or-border {
-    position: relative;
-    text-align: center;
-    margin-top: 30px;
-    color: #666;
-    /* Color del texto del separador */
+/* Estilo para el botón de Google */
+.btn.google {
+    background-color: #ffffff;
+    color: #4285F4;
+    border: 1px solid #4285F4;
+    transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
 }
 
-.or-border::before,
-.or-border::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 100px;
-    height: 1px;
-    background-color: #ccc;
-    /* Color de las líneas del separador */
+.btn.google:hover {
+    background-color: #0c0909;
+    color: #ffffff;
+    border-color: #4285F4;
+    transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
 }
 
-.or-border::before {
-    left: 0;
+/* Estilo para el botón de Facebook */
+.btn.facebook {
+    background-color: #ffffff;
+    color: #1877F2;
+    border: 1px solid #1877F2;
+    transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
 }
 
-.or-border::after {
-    right: 0;
+.btn.facebook:hover {
+    background-color: #0c0909;
+    color: #ffffff;
+    border-color: #1877F2;
+    transition: background-color 0.25s ease, color 0.25s ease, border 0.25s ease;
+}
+
+/* Iconos dentro de los botones */
+.google-icon,
+.facebook-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Si el tamaño de los botones o los iconos es más grande */
+.btn svg {
+    width: 24px;
+    height: 24px;
 }
 
 /* Campos del formulario */
@@ -121,13 +173,11 @@ button.mat-stroked-button {
 
 .form-col {
     width: 48%;
-    /* Cada columna ocupa la mitad del espacio disponible */
 }
 
 mat-form-field {
     width: 100%;
     transition: opacity 0.5s ease, transform 0.5s ease;
-    /* Transición para los campos del formulario */
 }
 
 mat-form-field.ng-enter {
@@ -142,52 +192,43 @@ mat-form-field.ng-enter-active {
 
 input[matInput] {
     font-size: 14px;
-    padding: 2px;
 }
 
 /* Ajuste de etiquetas */
 .mat-subtitle-2,
 mat-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
 }
 
 /* Estilo de los campos de formulario con animación */
 .form-col {
     opacity: 0;
-    /* Comienza invisible */
     transform: translateY(20px);
-    /* Se desplaza ligeramente hacia abajo */
     transition: opacity 0.3s ease, transform 0.3s ease;
-    /* Transiciones para opacidad y transformación */
 }
 
 .form-col.show {
     opacity: 1;
-    /* Se vuelve visible */
     transform: translateY(0);
-    /* Regresa a su posición original */
 }
 
-/* Colores adicionales del login */
 .mat-flat-button {
     background-color: #007bff;
-    /* Color del botón */
     color: white;
-    /* Color del texto del botón */
 }
 
 a.text-primary {
     color: #007bff;
-    /* Color del texto del enlace */
     font-weight: 500;
     font-size: 14px;
     text-decoration: none;
+    transition: all .24s ease;
 }
 
 a.text-primary:hover {
     text-decoration: underline;
-    /* Subrayado al pasar el mouse */
+    transition: all .24s ease;
 }
 
 span.d-block {
@@ -209,4 +250,4 @@ a.text-decoration-none.text-primary {
 a.text-decoration-none.text-primary:hover {
     text-decoration: underline;
     /* Subrayado al pasar el mouse */
-}   
+}

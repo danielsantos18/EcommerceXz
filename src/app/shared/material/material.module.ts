@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -29,7 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatOptionModule,
     MatListModule,
     MatSliderModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    
   ],
   exports: [
     MatButtonModule,
@@ -44,6 +47,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatListModule,
     MatSliderModule,
     MatDialogModule
+    
 
   ]
 })

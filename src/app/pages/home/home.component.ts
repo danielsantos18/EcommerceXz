@@ -99,6 +99,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     setTimeout(() => this.isImageChanging = false, 500); // Temporizador para animación
   }
 
+  // Lista de categorías 
+  categories: string[] = [
+    '',
+    'Ropa de mujer',
+    'Ropa para hombre',
+    'Ropa de Playa',
+    'Ropa interior',
+    'Niños',
+    'Zapatos',
+    'pijamas',
+    'Accesorios',
+    '',
+    
+  ];
+
+  // Control para mostrar el dropdown de categorías
+  showCategories: boolean = false;
+
   // Productos de ejemplo
   products: Product[] = [
     { id: 1, name: 'Camiseta Hombre', price: 29.99, image: 'assets/images/Hombre/camisa1.jpg', description: 'Camiseta de algodón', available: true, category: 'men', subcategory: 'tshirt' },
@@ -149,5 +167,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   toggleFilters(): void {
     this.openFilters = !this.openFilters;
+  }
+
+  // Mostrar categorías al hacer hover sobre el botón
+  toggleCategoriesDropdown(isHovering: boolean): void {
+    this.showCategories = isHovering;
   }
 }

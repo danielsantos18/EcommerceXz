@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router'; // Para redirigir después del registro exitoso
+import { MatSnackBar } from '@angular/material/snack-bar'; // Para mostrar mensajes de éxito y error
+import { AuthService } from '../../../core/auth.service'; // Ajusta esta ruta según tu estructura
+import { User } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -12,23 +16,26 @@ export class RegisterComponent implements OnInit {
   showConfirmPassword: boolean = false;
   showInputs: boolean[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,  // Injectamos AuthService
+    private router: Router,           // Para redirigir después de un registro exitoso
+    private snackBar: MatSnackBar     // Para mostrar mensajes de error y éxito
+  ) {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      city: [''],
-      address: [''],
+      address: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });
   }
 
   ngOnInit() {
-    // Inicializar showInputs con false para todos los campos
     this.showInputs = new Array(7).fill(false); // Cambiar 7 por el número total de campos que tienes
-    this.showInputsInOrder(); // Llama a esta función para mostrar los inputs uno por uno
+    this.showInputsInOrder();
   }
 
   get firstName() {
@@ -47,6 +54,10 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('phone');
   }
 
+  get address() {
+    return this.registerForm.get('address');
+  }
+
   get password() {
     return this.registerForm.get('password');
   }
@@ -55,21 +66,61 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('confirmPassword');
   }
 
+  // Esta es la función llamada en el onSubmit
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log('Formulario válido. Enviando datos:', this.registerForm.value);
+      this.registerUser();
     } else {
       console.log('Formulario no válido.');
     }
   }
 
+  // Esta función maneja el registro del usuario
+  registerUser() {
+    const formValue = this.registerForm.value;
+
+    // Creamos un objeto User utilizando la interfaz
+    const user: User = {
+      name: formValue.firstName,
+      last_name: formValue.lastName,
+      address: formValue.address,
+      phone_number: formValue.phone,
+      email: formValue.email,
+      password: formValue.password
+    };
+
+    // Enviamos el objeto User al servicio AuthService
+    this.authService.register(user).subscribe({
+      next: (response) => {
+        console.log('Registro exitoso', response);
+        this.snackBar.open('¡Registro exitoso!', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['success-snackbar']
+        });
+        this.router.navigate(['/auth/login']); // Redirige a la página de login
+      },
+      error: (error) => {
+        console.error('Error de registro', error);
+
+        // Extraemos el código de estado y el mensaje de error
+        const errorMessage = error?.error?.message || 'Ocurrió un error desconocido.';
+        const errorStatus = error.status || 'Desconocido';
+
+        // Mostramos el error en el SnackBar con el código de estado y el mensaje
+        this.snackBar.open(`Error ${errorStatus}: ${errorMessage}`, 'Cerrar', {
+          duration: 5000, // Muestra el mensaje por 5 segundos
+          panelClass: ['error-snackbar']
+        });
+      }
+    });
+  }
+
   showInputsInOrder() {
-    // Se mantienen los mismos índices para cada input
-    const inputsToShow = [0, 1, 2, 3, 4, 5, 6,7];
+    const inputsToShow = [0, 1, 2, 3, 4, 5, 6];
     inputsToShow.forEach((index) => {
       setTimeout(() => {
         this.showInputs[index] = true;
-      }, index * 300); // Retraso de 300 ms entre cada input
+      }, index * 300);
     });
   }
 

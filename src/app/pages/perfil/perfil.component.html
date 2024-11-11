@@ -9,7 +9,7 @@
 
             <!-- Detalles del perfil (modo solo lectura) -->
             <div class="profile-details" *ngIf="!isEditMode">
-                <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+                <h2>{{ user.name}} {{ user.last_name }}</h2>
 
                 <!-- Contenedor de la información del perfil -->
                 <div class="profile-info">
@@ -20,7 +20,7 @@
 
                     <div class="info-box">
                         <span>Phone:</span>
-                        <p>{{ user.phoneNumber }}</p>
+                        <p>{{ user.phone_number }}</p>
                     </div>
 
                     <div class="info-box">

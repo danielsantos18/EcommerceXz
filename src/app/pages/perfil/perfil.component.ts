@@ -1,64 +1,101 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from '../../core/user.service';
+import { AuthService } from '../../core/auth.service';  // Asegúrate de tener el AuthService importado
 import { OtpComponent } from '../../shared/otp/otp.component';
+import { User } from '../../models/user.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss']
 })
-
 export class PerfilComponent implements OnInit {
-  // Datos del usuario (pueden venir de un servicio)
-  user = {
-    firstName: 'Luis Miguel',
-    lastName: 'Miranda',
-    email: 'luis.miranda@email.com',
-    phoneNumber: '1234567890',
-    address: 'Calle Ficticia 123, Ciudad, País',
-    profilePic: 'assets/profile-pic.jpg',  // Ruta de la imagen de perfil
-    password: 'password'
-  };
-
-  // Formulario reactivo
+  user: User = { name: '', last_name: '', email: '', phone_number: '', address: '' };
   perfilForm!: FormGroup;
-  isEditMode = false; // Controlar el modo de edición
-  loading = false; // Estado de carga
-  selectedSection: string = 'personalData'; // Sección seleccionada (inicia en "Datos Personales")
-  recoveryMethod: string = ''; // Método de recuperación (email o phone)
-  recoveryCode: string = ''; // Código de recuperación ingresado
-  isCodeValid: boolean = false; // Validación del código
-  recoveryCodeInvalid: boolean = false; // Bandera para errores en el código
-  methodSelected: boolean = false; // Bandera para saber si el usuario seleccionó el método
-  recoveryCodeSent: boolean = false; // Nuevo estado para saber si el código fue enviado
+  isEditMode = false;
+  loading = false;
+  selectedSection: string = 'personalData';
+  recoveryMethod: string = '';
+  recoveryCode: string = '';
+  isCodeValid: boolean = false;
+  recoveryCodeInvalid: boolean = false;
+  methodSelected: boolean = false;
+  recoveryCodeSent: boolean = false;
 
-  constructor(private fb: FormBuilder, private _matDialog: MatDialog) { }
+  constructor(
+    private fb: FormBuilder,
+    private _matDialog: MatDialog,
+    private userService: UserService,
+    private authService: AuthService,  // Asegúrate de tener AuthService
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    // Inicializar el formulario con los datos del usuario
+    const userId = this.route.snapshot.paramMap.get('id') || '';
+
+    if (this.authService.isAuthenticated()) {
+      this.getUserById(userId);
+    } else {
+      alert('No estás autenticado. Por favor, inicia sesión.');
+    }
+
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
     this.perfilForm = this.fb.group({
-      firstName: [this.user.firstName, [Validators.required]],
-      lastName: [this.user.lastName, [Validators.required]],
-      email: [this.user.email, [Validators.required, Validators.email]],
-      phoneNumber: [this.user.phoneNumber, [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Valida 10 dígitos
-      address: [this.user.address, [Validators.required]],
-      password: ['', [Validators.minLength(6)]], // Nuevo campo para contraseña
-      confirmPassword: ['', [Validators.minLength(6)]], // Nuevo campo para confirmación de contraseña
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],  // Valida 10 dígitos
+      address: ['', [Validators.required]],
+      password: ['', [Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.minLength(6)]],
     }, {
-      // Validación para que las contraseñas coincidan
       validator: this.passwordMatchValidator
     });
   }
 
-  // Validar que las contraseñas coincidan
   passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { notMatching: true };
   }
 
-  // Cambiar entre modo de lectura y edición
+  getUserById(id: string): void {
+    this.loading = true;
+    const token = this.authService.getToken();  // Obtener el token JWT desde el AuthService
+
+    // Ahora pasamos el token al llamar al servicio
+    this.userService.getUserById(id, token).subscribe(
+      (user: User) => {
+        this.user = user;
+        this.fillForm(user);
+        this.loading = false;
+      },
+      (error) => {
+        console.error('Error al obtener el usuario:', error);
+        this.loading = false;
+        alert('No se pudo cargar la información del usuario.');
+      }
+    );
+  }
+
+  fillForm(user: User): void {
+    this.perfilForm.setValue({
+      firstName: user.name,
+      lastName: user.last_name,
+      email: user.email,
+      phoneNumber: user.phone_number,
+      address: user.address,
+      password: '',
+      confirmPassword: ''
+    });
+  }
+
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
     if (!this.isEditMode) {
@@ -66,106 +103,72 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  // Cambiar la sección activa
-  openEditSection(section: string): void {
-    this.selectedSection = section;
-  }
-
-  // Guardar los datos editados
   saveChanges(): void {
     if (this.perfilForm.valid) {
       this.loading = true;
-      setTimeout(() => {
-        this.updateUserData();
-        this.isEditMode = false;
-        this.loading = false;
-        alert('Los cambios fueron guardados correctamente');
-      }, 2000); // Simulamos un retraso de 2 segundos
+      const updatedUser: User = {
+        name: this.perfilForm.value.firstName,
+        last_name: this.perfilForm.value.lastName,
+        email: this.perfilForm.value.email,
+        phone_number: this.perfilForm.value.phoneNumber,
+        address: this.perfilForm.value.address,
+        password: this.perfilForm.value.password ? this.perfilForm.value.password : undefined,
+      };
+
+      const token = this.authService.getToken();  // Obtener el token para la autenticación
+
+      // Ahora pasamos el token al llamar al servicio para actualizar el usuario
+      this.userService.updateUser(this.user.name, token).subscribe(
+        (response) => {
+          this.user = updatedUser;
+          this.isEditMode = false;
+          this.loading = false;
+          alert('Perfil actualizado con éxito.');
+        },
+        (error) => {
+          console.error('Error actualizando usuario:', error);
+          alert('Hubo un error al actualizar el perfil.');
+          this.loading = false;
+        }
+      );
     } else {
       alert('Por favor, asegúrate de que todos los campos sean correctos.');
     }
   }
 
-  // Actualizar los datos del usuario
-  updateUserData(): void {
-    this.user.firstName = this.perfilForm.value.firstName;
-    this.user.lastName = this.perfilForm.value.lastName;
-    this.user.email = this.perfilForm.value.email;
-    this.user.phoneNumber = this.perfilForm.value.phoneNumber;
-    this.user.address = this.perfilForm.value.address;
-    // Solo actualizamos la contraseña si está definida
-    if (this.perfilForm.value.password) {
-      this.user['password'] = this.perfilForm.value.password;
-    }
-  }
-
-  // Cancelar la edición
   cancelEdit(): void {
     this.isEditMode = false;
     this.resetForm();
   }
 
-  // Resetear el formulario cuando se cancela la edición
   resetForm(): void {
-    this.perfilForm.reset({
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      email: this.user.email,
-      phoneNumber: this.user.phoneNumber,
-      address: this.user.address,
-      password: '',
-      confirmPassword: ''
-    });
-    // Restablecer valores de la recuperación
-    this.recoveryMethod = '';
-    this.recoveryCode = '';
-    this.isCodeValid = false;
-    this.recoveryCodeInvalid = false;
-    this.methodSelected = false;
-    this.recoveryCodeSent = false; // Resetear el estado
-  }
-
-  // Método que se llama cuando se selecciona un método de recuperación
-  onMethodChange(): void {
-    this.methodSelected = true;
-    this.recoveryCode = ''; // Reiniciar el código de recuperación
-    this.isCodeValid = false; // Resetear la validación del código
-    this.recoveryCodeInvalid = false; // Resetear el error del código
-  }
-
-  // Simulación de la verificación del código de recuperación
-  verifyRecoveryCode(): void {
-    // Simulación de validación del código (aquí deberías hacerlo de manera real)
-    if (this.recoveryCode === '123456') { // Código de ejemplo
-      this.isCodeValid = true;
-      this.recoveryCodeInvalid = false;
-    } else {
-      this.isCodeValid = false;
-      this.recoveryCodeInvalid = true;
-    }
-  }
-
-  // Función para habilitar los campos de cambio de contraseña
-  enablePasswordFields(): void {
-    if (this.isCodeValid) {
-      this.perfilForm.get('password')?.enable();
-      this.perfilForm.get('confirmPassword')?.enable();
-    }
-  }
-
-  sendRecoveryCode() {
-    this.loading = true;
-    setTimeout(() => {
-      // Simulación de envío de código
-      this.recoveryCodeInvalid = false;  // Suponemos que el código es válido
-      this.isCodeValid = true;
-      this.recoveryCodeSent = true; // Marcar como enviado
-      this.loading = false;
-    }, 2000); // Simulación de 2 segundos de espera
+    this.fillForm(this.user);
   }
 
   openModal(): void {
-    const dialogRef = this._matDialog.open(OtpComponent, {
-    });
+    const dialogRef = this._matDialog.open(OtpComponent, {});
+  }
+
+  openEditSection(section: string): void {
+    this.selectedSection = section;
+  }
+
+  sendRecoveryCode(): void {
+    if (!this.recoveryMethod) {
+      alert('Por favor, selecciona un método de recuperación.');
+      return;
+    }
+
+    this.loading = true;
+    setTimeout(() => {
+      this.recoveryCodeSent = true;
+      this.loading = false;
+      alert('Código de recuperación enviado.');
+    }, 1000);
+  }
+
+  onMethodChange(): void {
+    this.methodSelected = true;
+    this.recoveryCodeSent = false;
   }
 }

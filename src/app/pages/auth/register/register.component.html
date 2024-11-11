@@ -51,16 +51,8 @@
                 </mat-form-field>
               </div>
 
-              <!-- City or municipe -->
-              <div class="form-col" [class.show]="showInputs[4]">
-                <mat-label class="mat-subtitle-2">city or municipe</mat-label>
-                <mat-form-field appearance="outline">
-                  <input matInput placeholder="Address" formControlName="city" />
-                </mat-form-field>
-              </div>
-
               <!-- Address -->
-              <div class="form-col" [class.show]="showInputs[5]">
+              <div class="form-col" [class.show]="showInputs[4]">
                 <mat-label class="mat-subtitle-2">Address</mat-label>
                 <mat-form-field appearance="outline">
                   <input matInput placeholder="Address" formControlName="address" />
@@ -68,7 +60,7 @@
               </div>
 
               <!-- Password -->
-              <div class="form-col" [class.show]="showInputs[6]">
+              <div class="form-col" [class.show]="showInputs[5]">
                 <mat-label class="mat-subtitle-2">Password</mat-label>
                 <mat-form-field appearance="outline">
                   <input [type]="showPassword ? 'text' : 'password'" matInput placeholder="Password"
@@ -82,7 +74,7 @@
               </div>
 
               <!-- Confirm Password -->
-              <div class="form-col" [class.show]="showInputs[7]">
+              <div class="form-col" [class.show]="showInputs[6]">
                 <mat-label class="mat-subtitle-2">Confirm Password</mat-label>
                 <mat-form-field appearance="outline">
                   <input [type]="showConfirmPassword ? 'text' : 'password'" matInput placeholder="Confirm Password"

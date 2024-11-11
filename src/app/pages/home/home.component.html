@@ -8,8 +8,7 @@
 
     <form class="form">
         <label for="search">
-            <input required="" autocomplete="off" placeholder="search your chats" id="search" type="text"
-                (input)="searchProducts($event)">
+            <input required="" autocomplete="off" placeholder="search your chats" id="search" type="text">
             <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -38,9 +37,9 @@
         <mat-icon>home</mat-icon>
         <span>Inicio</span>
     </button>
-    
-    
-    
+
+
+
     <div class="categories-container">
         <!-- Botón de Categorías -->
         <button mat-button routerLink="/home" class="custom-button" (mouseover)="toggleCategoriesDropdown(true)"
@@ -48,7 +47,7 @@
             <mat-icon>dns</mat-icon>
             <span>Categorías</span>
         </button>
-    
+
         <!-- Dropdown de categorías -->
         <div *ngIf="showCategories" class="categories-dropdown">
             <ul>
@@ -65,7 +64,7 @@
             <!-- Mostrar los productos filtrados aquí, con detalle y añadir al carrito -->
         </div>
     </div>
-    
+
     <button mat-button routerLink="/perfil" class="custom-button">
         <mat-icon>account_circle</mat-icon>
         <span>Perfil de usuario</span>
@@ -74,11 +73,11 @@
         <mat-icon>shopping_cart</mat-icon>
         <span>Carrito</span>
     </button>
-    <button mat-button routerLink="/login" class="custom-button">
+    <button mat-button routerLink="/login" class="custom-button" (click)="logout()">
         <mat-icon>login</mat-icon>
         <span>salir</span>
     </button>
-    </mat-toolbar>
+</mat-toolbar>
 
 <!-- banner -->
 <div class="banner-carousel">
@@ -134,7 +133,7 @@
 </div>
 
 <!-- Botón para Mostrar/Ocultar Filtros -->
- 
+
 <button mat-raised-button color="accent" (click)="toggleFilters()">
     {{ openFilters ? 'Ocultar Filtros' : 'Filtrado más popular' }}
 </button>
@@ -146,9 +145,11 @@
         <mat-card-content>
             <h2>{{ product.name }}</h2>
             <p>Precio: {{ product.price | currency }}</p>
+            <!-- Barra de Navegación con Filtro de Búsqueda
             <span [class.available]="product.available" [class.unavailable]="!product.available">
                 {{ product.available ? 'Disponible' : 'No Disponible' }}
-            </span>
+            </span> 
+            -->
         </mat-card-content>
     </mat-card>
 </div>

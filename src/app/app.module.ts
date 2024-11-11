@@ -8,6 +8,7 @@ import { MaterialModule } from './shared/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './pages/product/product-detail/product-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ProductDetailComponent } from './pages/product/product-detail/product-d
     MaterialModule,
     BrowserAnimationsModule,
     RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

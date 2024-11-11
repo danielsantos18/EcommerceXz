@@ -1,17 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ProductService } from '../../core/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDetailComponent } from '../product/product-detail/product-detail.component';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  description: string;
-  available: boolean;
-  category: string; // "men", "women", "kids", "accessories"
-  subcategory: string; // "tshirt", "pants", etc.
-}
+import { Product } from '../../models/product.interface';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -32,9 +24,31 @@ export class HomeComponent implements OnInit, OnDestroy {
   private imageChangeInterval: any; // Para guardar el intervalo
   direction: 'left' | 'right' = 'right'; // Dirección del deslizamiento
 
-  constructor(private _matDialog: MatDialog) {}
+  products: Product[] = []; // Lista de productos
+  filteredProducts: Product[] = []; // Productos filtrados
+  showProductDetail = false;
+  selectedProduct: Product | null = null;
+  selectedCategory: string | null = null;
+  selectedSubcategory: string | null = null;
+  openFilters: boolean = false;
+
+  categories: string[] = [
+    'Ropa de mujer', 'Ropa para hombre', 'Ropa de Playa', 'Ropa interior',
+    'Niños', 'Zapatos', 'Pijamas', 'Accesorios'
+  ];
+
+  showCategories: boolean = false;
+
+  constructor(
+    private productService: ProductService, // Inyectamos el servicio
+    private authService: AuthService,
+    private _matDialog: MatDialog // Inyectamos el MatDialog
+  ) { }
 
   ngOnInit() {
+    // Cargar los productos desde el API
+    this.loadProducts();
+
     // Iniciar el cambio automático de imágenes
     this.startAutoImageChange();
   }
@@ -48,9 +62,25 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   //===================MODAL======================================
   openModal(product: Product): void {
-    const dialogRef = this._matDialog.open(ProductDetailComponent, {
-      width: '700px',
-      data: product // Pasamos el producto al modal
+    // Llamamos al servicio para obtener los detalles del producto (si es necesario)
+    this.productService.getProductDetail(product.id.toString()).subscribe({
+      next: (response) => {
+        if (response.status === 200) {
+          console.log(response)
+          const productDetail = response.data[0];  // Asumimos que la respuesta tiene este formato
+          const dialogRef = this._matDialog.open(ProductDetailComponent, {
+            maxWidth: '1500px',
+            maxHeight: '1000px',
+            height: 'auto',
+            data: { product: productDetail }  // Pasamos el producto completo, incluyendo las categorías
+          });
+        } else {
+          console.error('Error al obtener el producto', response.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener el producto', error);
+      }
     });
   }
 
@@ -99,72 +129,61 @@ export class HomeComponent implements OnInit, OnDestroy {
     setTimeout(() => this.isImageChanging = false, 500); // Temporizador para animación
   }
 
-  // Lista de categorías 
-  categories: string[] = [
-    '',
-    'Ropa de mujer',
-    'Ropa para hombre',
-    'Ropa de Playa',
-    'Ropa interior',
-    'Niños',
-    'Zapatos',
-    'pijamas',
-    'Accesorios',
-    '',
-    
-  ];
-
-  // Control para mostrar el dropdown de categorías
-  showCategories: boolean = false;
-
-  // Productos de ejemplo
-  products: Product[] = [
-    { id: 1, name: 'Camiseta Hombre', price: 29.99, image: 'assets/images/Hombre/camisa1.jpg', description: 'Camiseta de algodón', available: true, category: 'men', subcategory: 'tshirt' },
-    { id: 2, name: 'Pantalones Mujer', price: 49.99, image: 'assets/images/Mujer/3.jpg', description: 'Pantalones de mezclilla', available: false, category: 'women', subcategory: 'pants' },
-    { id: 3, name: 'Camiseta Niño', price: 19.99, image: 'assets/images/Hombre/niño.jpg', description: 'Camiseta divertida', available: true, category: 'kids', subcategory: 'tshirt' },
-    { id: 4, name: 'Accesorios Hombre', price: 15.99, image: 'assets/images/Hombre/accesorio.jpg', description: 'Accesorio de moda', available: true, category: 'accessories', subcategory: 'accessory' },
-    { id: 5, name: 'Camiseta Mujer', price: 25.99, image: 'assets/images/Mujer/camisa1.webp', description: 'Camiseta de verano', available: true, category: 'women', subcategory: 'tshirt' },
-  ];
-
-  filteredProducts: Product[] = [...this.products];
-  showProductDetail = false;
-  selectedProduct: Product | null = null;
-  selectedCategory: string | null = null;
-  selectedSubcategory: string | null = null;
-  openFilters: boolean = false;
-
-  searchProducts(event: Event): void {
-    const query = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredProducts = this.products.filter(product =>
-      product.name.toLowerCase().includes(query) &&
-      (this.selectedCategory ? product.category === this.selectedCategory : true) &&
-      (this.selectedSubcategory ? product.subcategory === this.selectedSubcategory : true)
-    );
+  // Cargar productos desde la API
+  loadProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (response) => {
+        if (response.status === 200) {
+          this.products = response.data;  // Guardamos los productos en el arreglo
+          this.filteredProducts = [...this.products]; // Inicializamos los productos filtrados
+        } else {
+          console.error('Error al cargar productos', response.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error de conexión con la API', error);
+      }
+    });
   }
 
+  // Filtrar productos según categoría y subcategoría
   filterProducts(category: string, subcategory?: string): void {
     this.selectedCategory = category;
     this.selectedSubcategory = subcategory || null;
     this.filteredProducts = this.products.filter(product =>
-      (category ? product.category === category : true) &&
-      (subcategory ? product.subcategory === subcategory : true)
+      (category ? category === category : true) &&
+      (subcategory ? subcategory === subcategory : true)
     );
   }
 
+  /*
+  searchProducts(event: Event): void {
+    const query = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredProducts = this.products.filter(product =>
+      product.name.toLowerCase().includes(query) &&
+      (this.selectedCategory ? category === this.selectedCategory : true)
+    );
+  }
+*/
+
+  // Ver detalles del producto
   viewProductDetail(product: Product): void {
     this.selectedProduct = product;
     this.showProductDetail = true;
   }
 
+  // Cerrar el detalle del producto
   closeProductDetail(): void {
     this.showProductDetail = false;
     this.selectedProduct = null;
   }
 
+  // Agregar producto al carrito
   addToCart(product: Product): void {
-    console.log("Producto agregado al carrito:", product);
+    console.log('Producto agregado al carrito:', product);
   }
 
+  // Mostrar/ocultar filtros
   toggleFilters(): void {
     this.openFilters = !this.openFilters;
   }
@@ -172,5 +191,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Mostrar categorías al hacer hover sobre el botón
   toggleCategoriesDropdown(isHovering: boolean): void {
     this.showCategories = isHovering;
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

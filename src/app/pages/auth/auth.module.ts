@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { MaterialModule } from '../../shared/material/material.module';
 import { SharedModule } from '../../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -14,7 +15,8 @@ import { SharedModule } from '../../shared/shared.module';
     AuthRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    //HttpClientModule
   ],
   exports: [RegisterComponent, LoginComponent]
 })

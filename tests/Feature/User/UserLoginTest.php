@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -69,7 +68,7 @@ class UserLoginTest extends TestCase
 
         # esperando
         $response->assertStatus(401);
-        $response->assertJsonFragment(['status' => 401, 'message' => 'Unauthorized']);
+        $response->assertJsonFragment(['status' => 401, 'message' => 'Correo o contraseña invalidos']);
     }
 
     // prueba para confirmar que el email sea requerido

@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return jsonResponse(
+            data: $categories,
+            status: 200,
+            message: 'Categorias listadas correctamente!',
+            errors: []
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        User::create($request->all());
-        return jsonResponse(message: 'Usuario registrado con exito.', status: 201);
+        //
     }
 
     /**
@@ -30,8 +34,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        User::find($id);
-        return jsonResponse(message: 'Usuario encontrado', status: 200);
+        //
     }
 
     /**
@@ -45,7 +48,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         //
     }

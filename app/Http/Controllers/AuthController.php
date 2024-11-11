@@ -18,7 +18,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return jsonResponse(status: 401, message: 'Unauthorized', errors: 'Correo o contraseña invalidos');
+            return jsonResponse(status: 401, message: 'Correo o contraseña invalidos', errors: 'Unauthorized');
         }
 
         // Obtener el usuario autenticado

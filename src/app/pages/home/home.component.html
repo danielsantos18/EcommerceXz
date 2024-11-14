@@ -57,14 +57,21 @@
         <mat-icon>account_circle</mat-icon>
         <span>Perfil de usuario</span>
     </button>
-    <button mat-button routerLink="/cart" class="custom-button">
+    <button mat-button routerLink="/carrito" class="custom-button">
         <mat-icon>shopping_cart</mat-icon>
         <span>Carrito</span>
     </button>
+
+    <button mat-button routerLink="/historial-pedidos" class="custom-button" (click)="logout()">
+        <mat-icon>history</mat-icon>
+        <span>order history</span>
+    </button>
+
     <button mat-button routerLink="/login" class="custom-button" (click)="logout()">
         <mat-icon>login</mat-icon>
         <span>salir</span>
     </button>
+
 </mat-toolbar>
 
 <!-- banner -->

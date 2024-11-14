@@ -6,6 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 
+
 @NgModule({
   declarations: [
     HomeComponent

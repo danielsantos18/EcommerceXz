@@ -1,26 +1,34 @@
 <?php
 
+
+/*
+|--------------------------------------------------------------------------
+| Cross-Origin Resource Sharing (CORS) Configuration
+|--------------------------------------------------------------------------
+|
+| Here you may configure your settings for cross-origin resource sharing
+| or "CORS". This determines what cross-origin operations may execute
+| in web browsers. You are free to adjust these settings as needed.
+|
+| To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+|
+*/
+
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Cross-Origin Resource Sharing (CORS) Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure your settings for cross-origin resource sharing
-    | or "CORS". This determines what cross-origin operations may execute
-    | in web browsers. You are free to adjust these settings as needed.
-    |
-    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-    |
-    */
+    'paths' => ['*'],  // Esto asegura que las rutas de la API estén permitidas
 
-    'paths' => ['*'],
-    'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    'allowed_origins' => ['http://localhost:4200'],
+    'allowed_methods' => ['*'],  // Permitir todos los métodos (GET, POST, PUT, DELETE...)
+
+    'allowed_origins' => ['http://localhost:4200'],  // Permitir solicitudes solo desde tu frontend (Angular)
+
     'allowed_origins_patterns' => [],
-    'allowed_headers' => ['Origin', 'Content-Type', 'Bearer-Token', 'Cookie'],
-    'exposed_headers' => [],
+
+    'allowed_headers' => ['*'],  // Permitir todos los encabezados
+
+    'exposed_headers' => false,
+
     'max_age' => 0,
+
     'supports_credentials' => true,
 ];

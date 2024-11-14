@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -25,6 +26,9 @@ class AuthController extends Controller
         $user = JWTAuth::user();
 
         // Crear un array de claims personalizados
+        /*
+
+
         $customClaims = [
             'name' => $user->name,
             'last_name' => $user->last_name, // Por ejemplo, si tienes roles
@@ -36,7 +40,8 @@ class AuthController extends Controller
 
         // Generar el token con los claims personalizados
         $token = JWTAuth::customClaims($customClaims)->attempt($credentials);
-
+        */
+        $token = JWTAuth::attempt($credentials);
         return jsonResponse(data: [
             'token' => $token,
             'expires_in' => auth()->factory()->getTTL() * 60

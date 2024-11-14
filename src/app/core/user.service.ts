@@ -7,12 +7,12 @@ import { User } from '../models/user.interface';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost/api/users'; // URL de la API de Laravel
+  private apiUrl = 'http://localhost:8000/api/v1/users'; // URL de la API de Laravel
 
   constructor(private http: HttpClient) { }
 
   // Crear usuario
-  createUser(user: any): Observable<any> {
+  createUser(user: User): Observable<any> {
     return this.http.post(this.apiUrl, user, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -21,19 +21,20 @@ export class UserService {
   }
 
   // Obtener todos los usuarios
-  getUsers(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
   }
 
   // Método para obtener el usuario por ID
-  getUserById(id: string, token: string | null): Observable<User> {
+  getUserById(id: string, token: string | null): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<User>(`${this.apiUrl}/${id}`);
+    return this.http.get<User>(`${this.apiUrl}/${id}`, { headers });  //Aquí debes pasar los headers
   }
 
   // Actualizar un usuario
-  updateUser(id: string, user: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, user);
+  updateUser(id: string | null, token: string | null, user: User): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<User>(`${this.apiUrl}/${id}`, user, { headers });
   }
 
   // Eliminar un usuario

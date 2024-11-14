@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-  user: User = { name: '', last_name: '', email: '', phone_number: '', address: '' };
+  user: User = { name: '', last_name: '', email: '', phone_number: '', address: '', password: '' };
   perfilForm!: FormGroup;
   isEditMode = false;
   loading = false;
@@ -34,14 +34,7 @@ export class PerfilComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.paramMap.get('id') || '';
-
-    if (this.authService.isAuthenticated()) {
-      this.getUserById(userId);
-    } else {
-      alert('No estás autenticado. Por favor, inicia sesión.');
-    }
-
+    this.loadUserData();
     this.initializeForm();
   }
 
@@ -65,24 +58,47 @@ export class PerfilComponent implements OnInit {
     return password === confirmPassword ? null : { notMatching: true };
   }
 
-  getUserById(id: string): void {
-    this.loading = true;
+  loadUserData(): void {
+    const userId = this.authService.getUserIdFromToken();  // Obtener el ID del usuario desde el token
     const token = this.authService.getToken();  // Obtener el token JWT desde el AuthService
 
-    // Ahora pasamos el token al llamar al servicio
-    this.userService.getUserById(id, token).subscribe(
-      (user: User) => {
-        this.user = user;
-        this.fillForm(user);
-        this.loading = false;
+    // Verificar si el token y el userId están disponibles
+    if (!token) {
+      alert('No se encontró el token de autenticación.');
+      return;
+    }
+
+    if (!userId) {
+      console.log('No se pudo obtener el ID del usuario desde el token.');
+      return;
+    }
+
+    console.log('Token:', token);  // Verificar si el token está disponible
+    console.log('User ID:', userId);  // Verificar si el ID está correctamente pasando
+
+    // Realizar la solicitud HTTP para cargar los datos del usuario
+    this.loading = true;
+    console.log('Realizando solicitud HTTP para cargar los datos del usuario...');
+
+    this.userService.getUserById(userId, token).subscribe({
+      next: (response) => {
+        if (response.status === 200) {
+          this.user = response.data;  // Guardamos los datos del usuario
+          this.fillForm(this.user);  // Llama a fillForm para llenar el formulario
+          console.log('Usuario cargado correctamente', this.user); // Mostrar datos del usuario por consola
+        } else {
+          console.error('Error al cargar usuario', response.message);  // En caso de que el estado no sea 200
+        }
       },
-      (error) => {
-        console.error('Error al obtener el usuario:', error);
-        this.loading = false;
-        alert('No se pudo cargar la información del usuario.');
+      error: (error) => {
+        console.error('Error de conexión con la API', error);  // Manejo de errores si la solicitud falla
+      },
+      complete: () => {
+        this.loading = false;  // Terminar el estado de carga
       }
-    );
+    });
   }
+
 
   fillForm(user: User): void {
     this.perfilForm.setValue({
@@ -112,13 +128,19 @@ export class PerfilComponent implements OnInit {
         email: this.perfilForm.value.email,
         phone_number: this.perfilForm.value.phoneNumber,
         address: this.perfilForm.value.address,
-        password: this.perfilForm.value.password ? this.perfilForm.value.password : undefined,
       };
 
       const token = this.authService.getToken();  // Obtener el token para la autenticación
+      const id = this.authService.getUserIdFromToken();
 
-      // Ahora pasamos el token al llamar al servicio para actualizar el usuario
-      this.userService.updateUser(this.user.name, token).subscribe(
+      if (!token) {
+        alert('Token no encontrado. No puedes actualizar los datos sin estar autenticado.');
+        this.loading = false;
+        return;
+      }
+
+      // Pasar el token y el userId al servicio de actualización
+      this.userService.updateUser(id, token, updatedUser).subscribe(
         (response) => {
           this.user = updatedUser;
           this.isEditMode = false;
@@ -170,5 +192,9 @@ export class PerfilComponent implements OnInit {
   onMethodChange(): void {
     this.methodSelected = true;
     this.recoveryCodeSent = false;
+  }
+
+  changePassword() {
+
   }
 }

@@ -94,9 +94,8 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" [disabled]="perfilForm.invalid || loading" class="btn-save">
-                        <span *ngIf="loading">Guardando...</span>
-                        <span *ngIf="!loading">Guardar Cambios</span>
+                    <button type="submit" [disabled]="perfilForm.invalid" class="btn-save">
+                        <span>Guardar Cambios</span>
                     </button>
                     <button type="button" (click)="cancelEdit()" class="btn-cancel">Cancelar</button>
                 </div>
@@ -171,8 +170,7 @@
                 <!-- Botones de Guardar y Cancelar -->
                 <div class="form-actions">
                     <button type="submit" [disabled]="perfilForm.invalid || loading" class="btn-save">
-                        <span *ngIf="loading">Guardando...</span>
-                        <span *ngIf="!loading">Guardar Cambios</span>
+                        <span>Guardar Cambios</span>
                     </button>
                     <button type="button" (click)="cancelEdit()" class="btn-cancel">Cancelar</button>
                 </div>

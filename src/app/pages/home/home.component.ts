@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   products: Product[] = []; // Lista de productos
   filteredProducts: Product[] = []; // Productos filtrados
+  searchQuery: string = ''; // Cadena de búsqueda
   showProductDetail = false;
   selectedProduct: Product | null = null;
   selectedCategory: string | null = null;
@@ -129,13 +130,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     setTimeout(() => this.isImageChanging = false, 500); // Temporizador para animación
   }
 
-  // Cargar productos desde la API
+  //cargar los productos
   loadProducts(): void {
     this.productService.getAllProducts().subscribe({
       next: (response) => {
         if (response.status === 200) {
-          this.products = response.data;  // Guardamos los productos en el arreglo
-          this.filteredProducts = [...this.products]; // Inicializamos los productos filtrados
+          // Primero, obtenemos los productos
+          this.products = response.data;
+
+          // Luego, parseamos las imágenes que están en formato JSON
+          this.products.forEach((product: any) => {
+            if (product.images) {
+              product.images = JSON.parse(product.images);  // Convertimos la cadena JSON en un array
+              console.log('Primera imagen:', product.images[0]);  // Esto debería mostrar solo la primera imagen
+            }
+          });
+
+          // Inicializamos los productos filtrados
+          this.filteredProducts = [...this.products];
+
+          console.log(this.products);  // Imprimir productos con las imágenes ya parseadas
         } else {
           console.error('Error al cargar productos', response.message);
         }
@@ -144,6 +158,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error('Error de conexión con la API', error);
       }
     });
+  }
+
+  getFirstImageUrl(product: Product): string | null {
+    if (product.images && product.images.length > 0) {
+      console.log(product.images[0]);
+      return product.images[0];  // Devuelve la primera imagen del producto
+    }
+    return null;
   }
 
   // Filtrar productos según categoría y subcategoría
@@ -156,15 +178,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  /*
+  // Filtrar productos según la búsqueda
   searchProducts(event: Event): void {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
+    this.searchQuery = query;
+
+    // Filtrar productos por nombre
     this.filteredProducts = this.products.filter(product =>
-      product.name.toLowerCase().includes(query) &&
-      (this.selectedCategory ? category === this.selectedCategory : true)
+      product.name.toLowerCase().includes(query)
     );
   }
-*/
 
   // Ver detalles del producto
   viewProductDetail(product: Product): void {

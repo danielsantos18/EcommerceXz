@@ -1,0 +1,50 @@
+<!-- Usar el Navbar en CarritoComponent -->
+<app-navbar></app-navbar>
+<div class="carrito-container">
+  <h2>Productos elegidos</h2>
+  
+
+  <!-- Lista de productos -->
+  <div *ngFor="let item of cartItems" class="carrito-item">
+    <div class="carrito-item-details">
+      <img [src]="'/assets/images/' + item.name + '.jpg'" alt="Imagen de {{ item.name }}" class="product-image">
+      <div class="product-info">
+        <h4>{{ item.name }}</h4>
+        <p>{{ item.description }}</p>
+        <p><strong>Precio unitario:</strong> ${{ item.price | number:'1.2-2' }}</p>
+      </div>
+    </div>
+
+    <!-- Cantidad y actualización -->
+    <div class="quantity-controls">
+      <button (click)="updateQuantity(item, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+      <input type="number" [(ngModel)]="item.quantity" (blur)="updateQuantity(item, item.quantity)" [max]="item.stock"
+        [min]="1" (change)="checkStock(item)" />
+      <button (click)="updateQuantity(item, item.quantity + 1)" [disabled]="item.quantity >= item.stock">+</button>
+    </div>
+
+    <!-- Precio total por producto -->
+    <div class="total-price">
+      <strong>Total: ${{ item.total | number:'1.2-2' }}</strong>
+    </div>
+
+    <!-- Mensaje de error de stock insuficiente -->
+    <div *ngIf="item.quantity > item.stock" class="error-message">
+      <p>¡No hay suficiente stock disponible!</p>
+    </div>
+
+    <!-- Botón de eliminar -->
+    <button (click)="removeItem(item)" class="remove-item">Eliminar</button>
+  </div>
+
+  <!-- Resumen de la compra -->
+  <div class="carrito-summary">
+    <p><strong>Total de la compra: ${{ totalPrice | number:'1.2-2' }}</strong></p>
+    <button (click)="finalizePurchase()" class="finalize-button">Finalizar compra</button>
+  </div>
+
+  <!-- Mensaje si el carrito está vacío -->
+  <div *ngIf="cartItems.length === 0" class="empty-cart-message">
+    <p>Tu carrito está vacío. ¡Agrega algunos productos!</p>
+  </div>
+</div>

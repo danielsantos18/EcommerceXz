@@ -7,6 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { MaterialModule } from '../../shared/material/material.module';
 
 
+
 @NgModule({
   declarations: [
     PerfilComponent

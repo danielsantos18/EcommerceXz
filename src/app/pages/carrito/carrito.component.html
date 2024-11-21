@@ -1,50 +1,76 @@
 <!-- Usar el Navbar en CarritoComponent -->
 <app-navbar></app-navbar>
-<div class="carrito-container">
-  <h2>Productos elegidos</h2>
-  
 
-  <!-- Lista de productos -->
-  <div *ngFor="let item of cartItems" class="carrito-item">
-    <div class="carrito-item-details">
-      <img [src]="'/assets/images/' + item.name + '.jpg'" alt="Imagen de {{ item.name }}" class="product-image">
-      <div class="product-info">
-        <h4>{{ item.name }}</h4>
-        <p>{{ item.description }}</p>
-        <p><strong>Precio unitario:</strong> ${{ item.price | number:'1.2-2' }}</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Importar Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Carrito de Compras</title>
+</head>
+
+<body>
+  <div class="card">
+    <div class="row">
+      <div class="col-md-8 carrito">
+        <div class="title">
+          <div class="row">
+            <div class="col"><h4><b>Carrito de Compras</b></h4></div>
+            <div class="col align-self-center text-right text-muted">{{ cartItems.length }} artículos</div>
+          </div>
+        </div>    
+
+        <!-- Productos en el carrito -->
+        <div *ngFor="let item of cartItems; let i = index" class="row border-top border-bottom">
+          <div class="row main align-items-center">
+            <div class="col-2"><img class="img-fluid" [src]="item.name" alt="{{ item.name }}"></div>
+            <div class="col">
+              <div class="row text-muted">{{ item.name }}</div>
+              <div class="row">{{ item.description }}</div>
+            </div>
+            <div class="col">
+              <!-- Botones para aumentar o disminuir la cantidad -->
+              <a href="#" (click)="updateQuantity(item, item.quantity - 1); $event.preventDefault()">-</a>
+              <a href="#" class="border">{{ item.quantity }}</a>
+              <a href="#" (click)="updateQuantity(item, item.quantity + 1); $event.preventDefault()">+</a>
+            </div>
+            <div class="col">€ {{ item.total.toFixed(2) }} <span class="close" (click)="removeItem(item)">&#10005;</span></div>
+          </div>
+        </div>
+
+        <!-- Mensaje de error de stock -->
+        <div *ngIf="insufficientStockMessage" class="alert alert-danger" role="alert">
+          {{ insufficientStockMessage }}
+        </div>
+
+        <!-- Enlace para volver a la tienda -->
+        <div class="back-to-shop">
+          <a href="/home" >←</a><span class="text-muted">Volver a la tienda</span>
+        </div>
+      </div>
+
+      <!-- Resumen de la compra - Manteniendo tu estructura -->
+      <div class="col-md-4 summary">
+        <div><h5><b>Resumen</b></h5></div>
+        <hr>
+        <div class="row">
+          <div class="col" style="padding-left:0;">ARTÍCULOS {{ cartItems.length }}</div>
+          <div class="col text-right">€ {{ totalPrice.toFixed(2) }}</div>
+        </div>
+        <form>
+          <p>ENVÍO</p>
+          <select>
+            <option class="text-muted">Entrega estándar - €5.00</option>
+          </select>
+          <p>CÓDIGO PROMOCIONAL</p>
+          <input id="codigo" placeholder="Introduce tu código">
+        </form>
+        <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+          <div class="col">PRECIO TOTAL</div>
+          <div class="col text-right">€ {{ totalPrice.toFixed(2) }}</div>
+        </div>
+        <button class="btn" (click)="finalizePurchase()">REALIZAR COMPRA</button>
       </div>
     </div>
-
-    <!-- Cantidad y actualización -->
-    <div class="quantity-controls">
-      <button (click)="updateQuantity(item, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
-      <input type="number" [(ngModel)]="item.quantity" (blur)="updateQuantity(item, item.quantity)" [max]="item.stock"
-        [min]="1" (change)="checkStock(item)" />
-      <button (click)="updateQuantity(item, item.quantity + 1)" [disabled]="item.quantity >= item.stock">+</button>
-    </div>
-
-    <!-- Precio total por producto -->
-    <div class="total-price">
-      <strong>Total: ${{ item.total | number:'1.2-2' }}</strong>
-    </div>
-
-    <!-- Mensaje de error de stock insuficiente -->
-    <div *ngIf="item.quantity > item.stock" class="error-message">
-      <p>¡No hay suficiente stock disponible!</p>
-    </div>
-
-    <!-- Botón de eliminar -->
-    <button (click)="removeItem(item)" class="remove-item">Eliminar</button>
   </div>
-
-  <!-- Resumen de la compra -->
-  <div class="carrito-summary">
-    <p><strong>Total de la compra: ${{ totalPrice | number:'1.2-2' }}</strong></p>
-    <button (click)="finalizePurchase()" class="finalize-button">Finalizar compra</button>
-  </div>
-
-  <!-- Mensaje si el carrito está vacío -->
-  <div *ngIf="cartItems.length === 0" class="empty-cart-message">
-    <p>Tu carrito está vacío. ¡Agrega algunos productos!</p>
-  </div>
-</div>
+</body>

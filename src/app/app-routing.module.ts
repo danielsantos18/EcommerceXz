@@ -16,6 +16,7 @@ const routes: Routes = [
 
   // Nueva ruta para el historial de pedidos
   { path: 'historial-pedidos', component: HistorialPedidosComponent },
+  { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule) },
 
   // Ruta para el manejo de errores
   { path: '**', redirectTo: '/auth/login' },

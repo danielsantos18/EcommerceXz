@@ -10,13 +10,15 @@ import { RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './pages/product/product-detail/product-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HistorialPedidosComponent } from './pages/historial-pedidos/historial-pedidos.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductDetailComponent,
-    HistorialPedidosComponent, 
+    HistorialPedidosComponent,
+    AdminComponent, 
   ],
   imports: [
     BrowserModule,

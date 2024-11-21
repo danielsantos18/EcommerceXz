@@ -8,7 +8,8 @@
 
     <form class="form">
         <label for="search">
-            <input required="" autocomplete="off" placeholder="search your chats" id="search" type="text">
+            <input required="" autocomplete="off" placeholder="Buscar productos" id="search" type="text"
+                (input)="searchProducts($event)">
             <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -38,25 +39,12 @@
         <span>Inicio</span>
     </button>
 
-
-
-    <div class="categories-container">
-        <!-- Botón de Categorías -->
-        <button mat-button routerLink="/home" class="custom-button" (mouseover)="toggleCategoriesDropdown(true)"
-            (mouseout)="toggleCategoriesDropdown(false)">
-            <mat-icon>dns</mat-icon>
-            <span>Categorías</span>
-        </button>
-
-        <!-- Dropdown de categorías -->
-        <div *ngIf="showCategories" class="categories-dropdown">
-            <ul>
-                <li *ngFor="let category of categories" (click)="filterProducts(category)">
-                    {{ category }}
-                </li>
-            </ul>
-        </div>
-    </div>
+    <!-- Botón de Categorías -->
+    <button mat-button routerLink="/home" class="custom-button" (mouseover)="toggleCategoriesDropdown(true)"
+        (mouseout)="toggleCategoriesDropdown(false)">
+        <mat-icon>dns</mat-icon>
+        <span>Categorías</span>
+    </button>
 
     <!-- Listado de productos -->
     <div *ngIf="filteredProducts.length > 0">
@@ -125,18 +113,6 @@
             <mat-option value="accessories">Accesorios</mat-option>
         </mat-select>
     </mat-form-field>
-
-    <!-- Filtros por subcategoría (solo visible cuando se selecciona categoría) -->
-    <mat-form-field *ngIf="selectedCategory && selectedCategory !== 'accessories'" appearance="outline">
-        <mat-label>Filtrar por subcategoría</mat-label>
-        <mat-select (selectionChange)="filterProducts(selectedCategory, $event.value)">
-            <mat-option *ngIf="selectedCategory === 'men'" value="tshirt">Camisetas</mat-option>
-            <mat-option *ngIf="selectedCategory === 'men'" value="pants">Pantalones</mat-option>
-            <mat-option *ngIf="selectedCategory === 'women'" value="tshirt">Camisetas</mat-option>
-            <mat-option *ngIf="selectedCategory === 'women'" value="pants">Pantalones</mat-option>
-            <mat-option *ngIf="selectedCategory === 'kids'" value="tshirt">Camisetas</mat-option>
-        </mat-select>
-    </mat-form-field>
 </div>
 
 <!-- Botón para Mostrar/Ocultar Filtros -->
@@ -148,16 +124,14 @@
 <!-- Sección de Productos Destacados -->
 <div class="products-container" *ngIf="!showProductDetail">
     <mat-card class="product-card" *ngFor="let product of filteredProducts" (click)="openModal(product)">
-        <img [src]="product.image" alt="{{ product.name }}">
+        <!-- Mostrar solo la primera imagen -->
+        <img [src]="'http://localhost:8000' + product.images[0]" alt="Imagen principal de {{ product.name }}" />
         <mat-card-content>
             <h2>{{ product.name }}</h2>
             <p>Precio: {{ product.price | currency }}</p>
-            <!-- Barra de Navegación con Filtro de Búsqueda
-            <span [class.available]="product.available" [class.unavailable]="!product.available">
-                {{ product.available ? 'Disponible' : 'No Disponible' }}
-            </span> 
-            -->
         </mat-card-content>
     </mat-card>
 </div>
+
+
 <app-footer></app-footer>

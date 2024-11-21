@@ -17,7 +17,7 @@
               <div class="form-col" [class.show]="showInputs[0]">
                 <mat-label class="mat-subtitle-2">First Name</mat-label>
                 <mat-form-field appearance="outline">
-                  <input matInput placeholder="First Name" formControlName="firstName" required />
+                  <input matInput placeholder="First Name" formControlName="firstName" required type="text"/>
                   <mat-error *ngIf="firstName?.hasError('required')">First Name is required.</mat-error>
                 </mat-form-field>
               </div>

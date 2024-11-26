@@ -6,6 +6,7 @@ import { AuthService } from '../../core/auth.service';  // Asegúrate de tener e
 import { OtpComponent } from '../../shared/otp/otp.component';
 import { User } from '../../models/user.interface';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-perfil',
@@ -24,16 +25,19 @@ export class PerfilComponent implements OnInit {
   recoveryCodeInvalid: boolean = false;
   methodSelected: boolean = false;
   recoveryCodeSent: boolean = false;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
     private _matDialog: MatDialog,
     private userService: UserService,
     private authService: AuthService,  // Asegúrate de tener AuthService
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loadUserData();
     this.initializeForm();
   }
@@ -82,6 +86,7 @@ export class PerfilComponent implements OnInit {
 
     this.userService.getUserById(userId, token).subscribe({
       next: (response) => {
+        this.isLoading = false
         if (response.status === 200) {
           this.user = response.data;  // Guardamos los datos del usuario
           this.fillForm(this.user);  // Llama a fillForm para llenar el formulario
@@ -91,11 +96,9 @@ export class PerfilComponent implements OnInit {
         }
       },
       error: (error) => {
+        this.isLoading = false
         console.error('Error de conexión con la API', error);  // Manejo de errores si la solicitud falla
       },
-      complete: () => {
-        this.loading = false;  // Terminar el estado de carga
-      }
     });
   }
 
@@ -140,21 +143,36 @@ export class PerfilComponent implements OnInit {
       }
 
       // Pasar el token y el userId al servicio de actualización
-      this.userService.updateUser(id, token, updatedUser).subscribe(
-        (response) => {
+      this.userService.updateUser(id, token, updatedUser).subscribe({
+        next: () => {
           this.user = updatedUser;
           this.isEditMode = false;
           this.loading = false;
-          alert('Perfil actualizado con éxito.');
+          this.snackBar.open('Usuario actualizado', 'Cerrar', {
+            duration: 3000
+          });
         },
-        (error) => {
-          console.error('Error actualizando usuario:', error);
-          alert('Hubo un error al actualizar el perfil.');
+        error: (error) => {
           this.loading = false;
+          const message = error?.error?.message || 'Error desconocido';
+          console.error('Error actualizando usuario:', message);
+          this.snackBar.open(message, 'Cerrar', {
+            duration: 3000
+          });
         }
-      );
+      });
+
     } else {
       alert('Por favor, asegúrate de que todos los campos sean correctos.');
+    }
+  }
+
+  onSubmit(): void {
+    if (this.perfilForm.valid) {
+      this.isLoading = true;
+      this.saveChanges();
+    } else {
+      alert('El formulario tiene errores. Por favor, revísalo.');
     }
   }
 

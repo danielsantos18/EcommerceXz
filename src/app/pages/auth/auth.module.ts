@@ -16,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     ReactiveFormsModule,
     SharedModule,
-    //HttpClientModule
   ],
   exports: [RegisterComponent, LoginComponent]
 })

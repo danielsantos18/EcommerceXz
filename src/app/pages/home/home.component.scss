@@ -1,13 +1,50 @@
 /* Estilos para la barra de navegación */
 .mat-toolbar {
     background-color: #f4ece1;
-    padding: 20px;
+    padding: 15px;
+    height: 80px;
 }
 
 .mat-toolbar .logo img {
     height: 50px;
     width: 50px;
 }
+
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        z-index: 1000;
+        padding: 10px;
+        min-width: 125px;
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                position: relative;
+                padding: 5px;
+                font-size: 16px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f0f0f0;
+                }
+            }
+        }
+    }
+}
+
 
 /* =======================================Estilos generales para botón ========================================================*/
 .custom-button {
@@ -17,7 +54,7 @@
     font-weight: 500;
     font-size: 16px;
     letter-spacing: 0.05em;
-    border-radius: 0.8em;
+    border-radius: 10px;
     cursor: pointer;
     border: none;
     background: linear-gradient(to right, #000, #f4ece1);
@@ -81,48 +118,6 @@
 
 .mat-toolbar .spacer {
     flex: 1;
-}
-
-/* Estilos para el campo de búsqueda */
-.search-field {
-    width: 400px;
-    /* Ajustamos el tamaño del ancho */
-    height: 35px;
-    /* Reducimos la altura del campo */
-    background-color: #f5f9fb;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    /* Ajustamos el padding */
-    transition: width 0.3s ease-in-out;
-}
-
-.search-field mat-icon {
-    color: #a563fc;
-    font-size: 20px;
-    /* Reducimos el tamaño del icono */
-    margin-right: 8px;
-    /* Un pequeño margen para separar el icono del input */
-}
-
-.search-field input {
-    background: none;
-    border: none;
-    outline: none;
-    flex-grow: 1;
-    height: 100%;
-    /* Aseguramos que el input tenga la misma altura que su contenedor */
-    padding: 5px 10px;
-    /* Reducimos el padding dentro del input */
-    font-size: 14px;
-    /* Reducimos el tamaño de la fuente para que se vea más compacto */
-    color: #333;
-    border-radius: 18px;
-}
-
-.search-field input::placeholder {
-    color: #bbb;
 }
 
 /* Estilos para los filtros */
@@ -454,196 +449,220 @@
 //===========================================Botones de filtrado==============================
 /* Estilos para el filtro de subcategoría */
 mat-form-field {
-    width: 30%; /* Hace que ocupe todo el ancho disponible */
-    margin-bottom: 15px; /* Espacio debajo del campo */
-    font-size: 14px; /* Tamaño de fuente más pequeño */
-  }
-  
-  /* Borde del campo de texto */
-  mat-form-field .mat-form-field-outline {
-    border-color: #c5b3b3; /* Color de borde gris suave */
-    border-width: 1px; /* Borde más delgado */
-    transition: all 0.3s ease; /* Transición suave para el borde */
-  }
-  
-  /* Estilo cuando el campo está enfocado */
-  mat-form-field.mat-focused .mat-form-field-outline {
-    border-color: #888888; /* Cambiar a un gris más oscuro cuando está enfocado */
-  }
-  
-  /* Fondo y estilo de texto */
-  mat-form-field .mat-form-field-infix {
-    background-color: #f5f5f5; /* Fondo gris claro */
-    border-radius: 4px; /* Bordes redondeados */
-  }
-  
-  /* Flecha de selección */
-  mat-form-field .mat-select-arrow {
-    color: #888888; /* Color gris para la flecha */
-  }
-  
-  /* Estilo para el botón de mostrar/ocultar filtros */
-  button[mat-raised-button] {
-    background-color: #e0e0e0; /* Color gris claro de fondo */
-    color: #333333; /* Color del texto */
-    font-size: 14px; /* Tamaño de fuente más pequeño */
-    font-weight: 500; /* Peso de la fuente */
-    padding: 8px 15px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes ligeramente redondeados */
-    border: 1px solid #cccccc; /* Borde gris claro */
-    transition: all 0.3s ease; /* Transición suave en hover */
+    width: 30%;
+    /* Hace que ocupe todo el ancho disponible */
+    margin-bottom: 15px;
+    /* Espacio debajo del campo */
+    font-size: 14px;
+    /* Tamaño de fuente más pequeño */
+}
+
+/* Borde del campo de texto */
+mat-form-field .mat-form-field-outline {
+    border-color: #c5b3b3;
+    /* Color de borde gris suave */
+    border-width: 1px;
+    /* Borde más delgado */
+    transition: all 0.3s ease;
+    /* Transición suave para el borde */
+}
+
+/* Estilo cuando el campo está enfocado */
+mat-form-field.mat-focused .mat-form-field-outline {
+    border-color: #888888;
+    /* Cambiar a un gris más oscuro cuando está enfocado */
+}
+
+/* Fondo y estilo de texto */
+mat-form-field .mat-form-field-infix {
+    background-color: #f5f5f5;
+    /* Fondo gris claro */
+    border-radius: 4px;
+    /* Bordes redondeados */
+}
+
+/* Flecha de selección */
+mat-form-field .mat-select-arrow {
+    color: #888888;
+    /* Color gris para la flecha */
+}
+
+/* Estilo para el botón de mostrar/ocultar filtros */
+button[mat-raised-button] {
+    background-color: #e0e0e0;
+    /* Color gris claro de fondo */
+    color: #333333;
+    /* Color del texto */
+    font-size: 14px;
+    /* Tamaño de fuente más pequeño */
+    font-weight: 500;
+    /* Peso de la fuente */
+    padding: 8px 15px;
+    /* Espaciado interno */
+    border-radius: 5px;
+    /* Bordes ligeramente redondeados */
+    border: 1px solid #cccccc;
+    /* Borde gris claro */
+    transition: all 0.3s ease;
+    /* Transición suave en hover */
     display: inline-flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  /* Efecto hover en el botón */
-  button[mat-raised-button]:hover {
-    background-color: #d5d5d5; /* Color más oscuro en hover */
-    box-shadow: auto; /* Sin sombra en hover */
-  }
-  
-  /* Efecto al hacer clic (activo) */
-  button[mat-raised-button]:active {
-    background-color: #bdbdbd; /* Color aún más oscuro cuando se presiona */
-    box-shadow: none; /* Sin sombra al hacer clic */
-  }
-  
-  /* Estilo adicional para el texto dentro del botón */
-  button[mat-raised-button] span {
-    font-weight: 500; /* Ajustamos el peso del texto */
-    text-transform: none; /* Evita que el texto se vuelva mayúsculas */
+}
+
+/* Efecto hover en el botón */
+button[mat-raised-button]:hover {
+    background-color: #d5d5d5;
+    /* Color más oscuro en hover */
+    box-shadow: auto;
+    /* Sin sombra en hover */
+}
+
+/* Efecto al hacer clic (activo) */
+button[mat-raised-button]:active {
+    background-color: #bdbdbd;
+    /* Color aún más oscuro cuando se presiona */
+    box-shadow: none;
+    /* Sin sombra al hacer clic */
+}
+
+/* Estilo adicional para el texto dentro del botón */
+button[mat-raised-button] span {
+    font-weight: 500;
+    /* Ajustamos el peso del texto */
+    text-transform: none;
+    /* Evita que el texto se vuelva mayúsculas */
     font-size: 14px;
-  }
-  
-  /* Estilos para el contenedor de filtros */
-  .open-filters {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      /* Espacio entre los filtros */
-      padding: 20px;
-      background-color: transparent;
-      /* Fondo gris claro */
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      /* Sombra suave alrededor */
-  }
+}
 
-  /* Estilo para el mat-form-field */
-  mat-form-field {
-      width: 30%;
-      /* Asegura que ocupe el ancho completo */
-      margin-bottom: auto;
-      /* Espacio inferior entre los filtros */
-      font-size: 14px;
-      /* Tamaño de texto estándar */
-  }
+/* Estilos para el contenedor de filtros */
+.open-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Espacio entre los filtros */
+    padding: 20px;
+    background-color: transparent;
+    /* Fondo gris claro */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra suave alrededor */
+}
 
-  /* Estilo para los bordes del mat-form-field */
-  mat-form-field .mat-form-field-outline {
-      border-color: #cccccc;
-      /* Borde gris claro */
-      border-width: 1px;
-      /* Grosor del borde */
-      border-radius: 4px;
-      /* Bordes redondeados */
-      transition: all 0.3s ease;
-      /* Suaviza la transición */
-  }
+/* Estilo para el mat-form-field */
+mat-form-field {
+    width: 30%;
+    /* Asegura que ocupe el ancho completo */
+    margin-bottom: auto;
+    /* Espacio inferior entre los filtros */
+    font-size: 14px;
+    /* Tamaño de texto estándar */
+}
 
-  /* Estilo para el mat-form-field cuando está enfocado */
-  mat-form-field.mat-focused .mat-form-field-outline {
-      border-color: #888888;
-      /* Borde gris más oscuro cuando está enfocado */
-  }
+/* Estilo para los bordes del mat-form-field */
+mat-form-field .mat-form-field-outline {
+    border-color: #cccccc;
+    /* Borde gris claro */
+    border-width: 1px;
+    /* Grosor del borde */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    transition: all 0.3s ease;
+    /* Suaviza la transición */
+}
 
-  /* Fondo del campo select dentro del mat-form-field */
-  mat-form-field .mat-form-field-infix {
-      background-color: #f5f5f5;
-      /* Fondo gris muy claro */
-      border-radius: 4px;
-      /* Bordes redondeados */
-  }
+/* Estilo para el mat-form-field cuando está enfocado */
+mat-form-field.mat-focused .mat-form-field-outline {
+    border-color: #888888;
+    /* Borde gris más oscuro cuando está enfocado */
+}
 
-  /* Estilos de mat-select (el campo desplegable) */
-  mat-select {
-      color: #333333;
-      /* Color gris oscuro para las opciones */
-  }
+/* Fondo del campo select dentro del mat-form-field */
+mat-form-field .mat-form-field-infix {
+    background-color: #f5f5f5;
+    /* Fondo gris muy claro */
+    border-radius: 4px;
+    /* Bordes redondeados */
+}
 
-  /* Estilo de la flecha del mat-select */
-  mat-select .mat-select-arrow {
-      color: #888888;
-      /* Color gris para la flecha */
-  }
+/* Estilos de mat-select (el campo desplegable) */
+mat-select {
+    color: #333333;
+    /* Color gris oscuro para las opciones */
+}
 
-  /* Cuando el mat-select está enfocado, cambiar color de la flecha */
-  mat-form-field.mat-focused .mat-select-arrow {
-      color: #333333;
-      /* Color más oscuro para la flecha al enfocar */
-  }
+/* Estilo de la flecha del mat-select */
+mat-select .mat-select-arrow {
+    color: #888888;
+    /* Color gris para la flecha */
+}
 
-  /* Estilo de las opciones dentro del mat-select */
-  mat-option {
-      font-size: 14px;
-      /* Tamaño de texto ajustado para las opciones */
-      padding: 10px 15px;
-      /* Relleno para las opciones */
-      transition: background-color 0.3s ease;
-      /* Transición suave para hover */
-  }
+/* Cuando el mat-select está enfocado, cambiar color de la flecha */
+mat-form-field.mat-focused .mat-select-arrow {
+    color: #333333;
+    /* Color más oscuro para la flecha al enfocar */
+}
 
-  /* Efecto hover en las opciones */
-  mat-option:hover {
-      background-color: #e0e0e0;
-      /* Fondo gris claro cuando se pasa el mouse */
-  }
+/* Estilo de las opciones dentro del mat-select */
+mat-option {
+    font-size: 14px;
+    /* Tamaño de texto ajustado para las opciones */
+    padding: 10px 15px;
+    /* Relleno para las opciones */
+    transition: background-color 0.3s ease;
+    /* Transición suave para hover */
+}
 
-  /* Estilo de la opción seleccionada */
-  mat-option.mat-selected {
-      background-color: #c5cae9;
-      /* Fondo azul claro para la opción seleccionada */
-      color: #fff;
-      /* Texto blanco para la opción seleccionada */
-  }
+/* Efecto hover en las opciones */
+mat-option:hover {
+    background-color: #e0e0e0;
+    /* Fondo gris claro cuando se pasa el mouse */
+}
 
-  /* Estilo para las etiquetas de los mat-form-field */
-  mat-label {
-      font-weight: 500;
-      /* Peso de la fuente moderado */
-      color: #444444;
-      /* Gris oscuro */
-  }
+/* Estilo de la opción seleccionada */
+mat-option.mat-selected {
+    background-color: #c5cae9;
+    /* Fondo azul claro para la opción seleccionada */
+    color: #fff;
+    /* Texto blanco para la opción seleccionada */
+}
 
-  /* Estilo para el filtro por subcategoría, solo cuando se elige una categoría */
-  mat-form-field.mat-hide {
-      display: none;
-  }
+/* Estilo para las etiquetas de los mat-form-field */
+mat-label {
+    font-weight: 500;
+    /* Peso de la fuente moderado */
+    color: #444444;
+    /* Gris oscuro */
+}
 
-  /* Filtros - Botón para Mostrar/Ocultar */
-  button.mat-raised-button {
-      margin-top: 20px;
-      background-color: #888888;
-      /* Gris para el botón */
-      color: white;
-      /* Texto blanco */
-      font-size: 14px;
-      padding: 10px 20px;
-      border-radius: 4px;
-      box-shadow: none;
-      transition: background-color 0.3s ease;
-      width: 100%;
-      /* Botón de ancho completo */
-  }
+/* Estilo para el filtro por subcategoría, solo cuando se elige una categoría */
+mat-form-field.mat-hide {
+    display: none;
+}
 
-  button.mat-raised-button:hover {
-      background-color: #e9e3e3;
-      /* Fondo más oscuro al pasar el mouse */
-  }
+/* Filtros - Botón para Mostrar/Ocultar */
+button.mat-raised-button {
+    margin-top: 20px;
+    background-color: #888888;
+    /* Gris para el botón */
+    color: white;
+    /* Texto blanco */
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: none;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    /* Botón de ancho completo */
+}
+
+button.mat-raised-button:hover {
+    background-color: #e9e3e3;
+    /* Fondo más oscuro al pasar el mouse */
+}
 
 
-  /* home.component.scss */
+/* home.component.scss */
 
 /* Contenedor para botón y dropdown */
 .categories-container {
@@ -662,16 +681,19 @@ mat-form-field {
     transform: translateY(-10px);
     transition: opacity 0.3s, transform 0.3s;
     z-index: 10;
-    pointer-events: none; /* Desactivar eventos del mouse mientras está oculto */
-    width: 200px; /* Ancho del dropdown */
+    pointer-events: none;
+    /* Desactivar eventos del mouse mientras está oculto */
+    width: 200px;
+    /* Ancho del dropdown */
 }
 
 /* Mostrar dropdown al pasar el cursor */
-.custom-button:hover + .categories-dropdown,
+.custom-button:hover+.categories-dropdown,
 .categories-dropdown:hover {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto; /* Activar eventos del mouse cuando esté visible */
+    pointer-events: auto;
+    /* Activar eventos del mouse cuando esté visible */
 }
 
 /* Estilo para la lista de categorías */
@@ -686,7 +708,8 @@ mat-form-field {
     padding: 12px 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-    border-bottom: 1px solid #eee; /* Separador entre ítems */
+    border-bottom: 1px solid #eee;
+    /* Separador entre ítems */
 }
 
 /* Fondo al pasar el cursor sobre un ítem */
@@ -698,6 +721,3 @@ mat-form-field {
 .categories-dropdown li:last-child {
     border-bottom: none;
 }
-
-
-

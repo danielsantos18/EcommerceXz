@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { User } from '../models/user.interface';
 
 @Injectable({
@@ -11,34 +12,50 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  // Manejo genérico de errores en el método mismo
+  private handleRequest<T>(request: Observable<T>): Observable<T> {
+    return request.pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Centralización de errores
+        console.error('Error en la solicitud:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   // Crear usuario
   createUser(user: User): Observable<any> {
-    return this.http.post(this.apiUrl, user, {
+    const request = this.http.post(`${this.apiUrl}`, user, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     });
+    return this.handleRequest(request);
   }
 
   // Obtener todos los usuarios
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+    const request = this.http.get<User[]>(this.apiUrl);
+    return this.handleRequest(request);
   }
 
-  // Método para obtener el usuario por ID
+  // Obtener un usuario por ID
   getUserById(id: string, token: string | null): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<User>(`${this.apiUrl}/${id}`, { headers });  //Aquí debes pasar los headers
+    const request = this.http.get<User>(`${this.apiUrl}/${id}`, { headers });
+    return this.handleRequest(request);
   }
 
   // Actualizar un usuario
   updateUser(id: string | null, token: string | null, user: User): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<User>(`${this.apiUrl}/${id}`, user, { headers });
+    const request = this.http.put<User>(`${this.apiUrl}/profile/edit`, user, { headers });
+    return this.handleRequest(request);
   }
 
   // Eliminar un usuario
   deleteUser(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    const request = this.http.delete(`${this.apiUrl}/${id}`);
+    return this.handleRequest(request);
   }
 }

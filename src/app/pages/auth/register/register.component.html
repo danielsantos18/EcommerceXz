@@ -17,7 +17,7 @@
               <div class="form-col" [class.show]="showInputs[0]">
                 <mat-label class="mat-subtitle-2">First Name</mat-label>
                 <mat-form-field appearance="outline">
-                  <input matInput placeholder="First Name" formControlName="firstName" required type="text"/>
+                  <input matInput placeholder="First Name" formControlName="firstName" required type="text" />
                   <mat-error *ngIf="firstName?.hasError('required')">First Name is required.</mat-error>
                 </mat-form-field>
               </div>
@@ -137,6 +137,16 @@
           </span>
         </mat-card-content>
       </mat-card>
+    </div>
+  </div>
+  <div class="overlay" *ngIf="isLoading">
+    <div id="container">
+      <label class="loading-title">Loading ...</label>
+      <span class="loading-circle sp1">
+        <span class="loading-circle sp2">
+          <span class="loading-circle sp3"></span>
+        </span>
+      </span>
     </div>
   </div>
 </div>

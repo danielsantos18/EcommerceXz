@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   showInputs: boolean[] = [];
+  isLoading = false; // Activar el spinner
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +70,7 @@ export class RegisterComponent implements OnInit {
   // Esta es la función llamada en el onSubmit
   onSubmit() {
     if (this.registerForm.valid) {
+      this.isLoading = true
       this.registerUser();
     } else {
       console.log('Formulario no válido.');
@@ -92,14 +94,15 @@ export class RegisterComponent implements OnInit {
     // Enviamos el objeto User al servicio AuthService
     this.authService.register(user).subscribe({
       next: (response) => {
+        this.isLoading = false; // Desactivar el spinner
         console.log('Registro exitoso', response);
         this.snackBar.open('¡Registro exitoso!', 'Cerrar', {
-          duration: 3000,
-          panelClass: ['success-snackbar']
+          duration: 3000
         });
         this.router.navigate(['/auth/login']); // Redirige a la página de login
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Error de registro', error);
 
         // Extraemos el código de estado y el mensaje de error

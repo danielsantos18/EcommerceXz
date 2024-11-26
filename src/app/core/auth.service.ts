@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { User } from '../models/user.interface';
 import { jwtDecode } from 'jwt-decode';
@@ -16,9 +16,9 @@ export class AuthService {
   // Registro de usuario
   register(user: User): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user).pipe(
-      catchError((error) => {
-        console.error('Error en el registro:', error);
-        return of(null); // Devuelve null o maneja el error de forma adecuada
+      catchError((error: HttpErrorResponse) => {
+        // Manejo de errores aquí si es necesario
+        return throwError(() => error);
       })
     );
   }
@@ -38,9 +38,9 @@ export class AuthService {
           console.error('No se encontró el token en la respuesta');
         }
       }),
-      catchError((error) => {
-        console.error('Error en el login:', error);
-        return of(null); // Devuelve null o maneja el error de forma adecuada
+      catchError((error: HttpErrorResponse) => {
+        // Manejo de errores aquí si es necesario
+        return throwError(() => error);
       })
     );
   }

@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   hidePassword = true;
   showInputs: boolean[] = [];
   errorMessage: string = '';
+  isLoading = false; // Activar el spinner
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
   // Método que se llama al enviar el formulario
   onSubmit() {
     if (this.loginForm.valid) {
+      this.isLoading = true; // Activar el spinner
       this.loginUser();
     } else {
       console.log('Formulario no válido.');
@@ -56,24 +58,26 @@ export class LoginComponent implements OnInit {
     // Llamamos al servicio de autenticación
     this.authService.login(formValue).subscribe({
       next: (response) => {
-        // Si la autenticación es exitosa, guarda el token
-        this.authService.setToken(response.token);
-
+        this.isLoading = false; // Desactivar el spinner en caso de error
+        this.snackBar.open('Inicio de sesion exitoso', 'Cerrar', {
+          duration: 3000
+        });
         // Redirige al usuario a la página deseada, por ejemplo, el dashboard
         this.router.navigate(['/home']);
         console.log(response);
       },
       error: (error) => {
-        console.error('Error en iniciar', error);
+        this.isLoading = false; // Desactivar el spinner en caso de error
+        console.error('Error en iniciar sesión:', error);
 
-        // Extraemos el código de estado y el mensaje de error
+        // Asegúrate de extraer correctamente el mensaje y el estado
         const errorMessage = error?.error?.message || 'Ocurrió un error desconocido.';
-        const errorStatus = error.status || 'Desconocido';
+        const errorStatus = error?.status || 'Desconocido';
 
-        // Mostramos el error en el SnackBar con el código de estado y el mensaje
+        // Muestra el mensaje en el SnackBar
         this.snackBar.open(`Error ${errorStatus}: ${errorMessage}`, 'Cerrar', {
-          duration: 5000, // Muestra el mensaje por 5 segundos
-          panelClass: ['error-snackbar']
+          duration: 5000, // Duración del mensaje en milisegundos
+          panelClass: ['error-snackbar'], // Estilo opcional
         });
       }
     });

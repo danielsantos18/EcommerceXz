@@ -19,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';  // Para la pa
 import { MatSortModule } from '@angular/material/sort';            // Para la ordenación
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Para el selector de fecha
 import { MatNativeDateModule } from '@angular/material/core';      // Para fechas nativas
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Importa el módulo del spinner
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { MatNativeDateModule } from '@angular/material/core';      // Para fecha
     MatSortModule,            // Agregar módulo para la ordenación
     MatDatepickerModule,      // Agregar módulo para el selector de fechas
     MatNativeDateModule,      // Agregar módulo para fechas nativas
+    MatProgressSpinnerModule
   ],
   exports: [
     MatButtonModule,
@@ -61,7 +63,7 @@ import { MatNativeDateModule } from '@angular/material/core';      // Para fecha
     MatSortModule,            // Exportar módulo para la ordenación
     MatDatepickerModule,      // Exportar módulo para el selector de fechas
     MatNativeDateModule,      // Exportar módulo para fechas nativas
-    
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

@@ -4,6 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductDetailComponent } from '../product/product-detail/product-detail.component';
 import { Product } from '../../models/product.interface';
 import { AuthService } from '../../core/auth.service';
+import { Inventory } from '../../models/inventory.interface';
+import { Router } from '@angular/router';
+import { CategoryService } from '../../core/category.service';
+import { Category } from '../../models/category.interface';
 
 @Component({
   selector: 'app-home',
@@ -32,24 +36,36 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectedCategory: string | null = null;
   selectedSubcategory: string | null = null;
   openFilters: boolean = false;
-
-  categories: string[] = [
-    'Ropa de mujer', 'Ropa para hombre', 'Ropa de Playa', 'Ropa interior',
-    'Niños', 'Zapatos', 'Pijamas', 'Accesorios'
-  ];
-
+  inventories: Inventory[] = [];
   showCategories: boolean = false;
+  activeCategory: any = null;
+  showProfileDropdown = false; // Variable para mostrar/ocultar el dropdown
+  categories: Category[] = [];
+  /* Categorías con subcategorías
+  categories = [
+    { name: 'Ropa de mujer', subcategories: ['Vestidos', 'Blusas', 'Faldas'] },
+    { name: 'Ropa de hombre', subcategories: ['Camisas', 'Pantalones', 'Trajes'] },
+    { name: 'Ropa de Playa', subcategories: ['Bikinis', 'Shorts de baño', 'Sandalias'] },
+    { name: 'Ropa interior', subcategories: ['Brasieres', 'Bóxers', 'Calcetas'] },
+    { name: 'Niños', subcategories: ['Ropa casual', 'Uniformes', 'Zapatos'] },
+    { name: 'Zapatos', subcategories: ['Deportivos', 'Formales', 'Casuales'] },
+    { name: 'Pijamas', subcategories: ['Hombres', 'Mujeres', 'Niños'] },
+    { name: 'Accesorios', subcategories: ['Bolsos', 'Relojes', 'Sombreros'] }
+  ];
+*/
 
   constructor(
     private productService: ProductService, // Inyectamos el servicio
+    private router: Router,
     private authService: AuthService,
+    private categoryService: CategoryService,
     private _matDialog: MatDialog // Inyectamos el MatDialog
   ) { }
 
   ngOnInit() {
     // Cargar los productos desde el API
     this.loadProducts();
-
+    this.loadCategories();
     // Iniciar el cambio automático de imágenes
     this.startAutoImageChange();
   }
@@ -59,6 +75,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.imageChangeInterval) {
       clearInterval(this.imageChangeInterval);
     }
+  }
+
+  loadCategories(): void {
+    this.categoryService.getAllCategories().subscribe({
+      next: (response) => {
+        console.log('Datos recibidos:', response);
+        this.categories = response.data; // Asigna la propiedad `data` a `categories`
+      },
+      error: (error) => {
+        console.error('Error al cargar categorías:', error);
+      }
+    });
+  }
+
+  toggleCategoriesDropdown(isHovering: boolean): void {
+    this.showCategories = isHovering;
+  }
+
+  showSubcategories(category: any): void {
+    this.activeCategory = category;
+  }
+
+  hideSubcategories(): void {
+    this.activeCategory = null;
   }
 
   //===================MODAL======================================
@@ -210,14 +250,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   toggleFilters(): void {
     this.openFilters = !this.openFilters;
   }
-
-  // Mostrar categorías al hacer hover sobre el botón
-  toggleCategoriesDropdown(isHovering: boolean): void {
-    this.showCategories = isHovering;
+  // Mostrar/ocultar el dropdown de perfil
+  toggleProfileDropdown(show: boolean): void {
+    this.showProfileDropdown = show;
   }
 
+  // Redirigir a la página de perfil
+  goToProfile(): void {
+    this.router.navigate(['/perfil']);
+  }
+
+  // Redirigir a la página de login
+  goToLogin(): void {
+    this.authService.logout(); // Asegúrate de que tu servicio de autenticación maneje la lógica de cierre de sesión
+    this.router.navigate(['/login']);
+  }
+
+  // Redirigir a la página de login
+  goToOrder(): void {
+    this.router.navigate(['/historial-pedidos']);
+  }
+
+  // Cerrar sesión
   logout(): void {
-    this.authService.logout();
+    this.authService.logout(); // Asegúrate de que tu servicio de autenticación maneje la lógica de cierre de sesión
+    this.router.navigate(['/login']);
   }
 }
- 

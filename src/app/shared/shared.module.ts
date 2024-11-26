@@ -6,13 +6,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { OtpComponent } from './otp/otp.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
     NavbarComponent,
-    OtpComponent
+    OtpComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,3 @@
-
 .available {
     color: green;
 }
@@ -7,9 +6,45 @@
     color: red;
 }
 
+/* Oculta la sección por defecto */
+.hide {
+    display: none;
+}
+
+/* Efecto de deslizamiento */
+.block_descriptionCharacteristic {
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Cuando la clase 'active' es agregada, muestra la sección */
+.block_descriptionCharacteristic.active {
+    display: block;
+    max-height: 1000px;
+}
+
 /*********************************************/
 /*COLORS*/
 /*********************************************/
+
+.sliderBlock_items__itemPhoto {
+    display: none; // Oculta todas las imágenes
+}
+
+.sliderBlock_items__showing {
+    display: block; // Muestra solo la imagen actual
+}
+
+.sliderBlock_positionControls__active {
+    background-color: #000; // Estilo para la miniatura activa
+}
+
+.sliderBlock_positionControls__paginatorItem {
+    cursor: pointer;
+}
+
 body {
     font-family: "Titillium Web", sans-serif;
     font-weight: 400;
@@ -90,8 +125,8 @@ button {
     position: absolute;
     top: 0;
     left: 0;
-    max-width: 184px;
-    max-height: 75px;
+    max-width: 185px;
+    max-height: 80px;
     background-color: #272727;
     z-index: 2;
 }
@@ -106,6 +141,7 @@ button {
     display: block;
     top: 50%;
     left: 50%;
+    width: 80px;
     transform: translate(-50%, -50%);
 }
 
@@ -165,34 +201,29 @@ button {
     height: 20px;
 }
 
+//ARROWWWWW
 .sliderBlock_controls__arrow {
     position: relative;
+    text-align: center;
     width: 24px;
-    height: 24px;
+    height: 25px;
     cursor: pointer;
     border: 1px solid #536dfe;
-    transition: 300ms all;
     background-color: #0d2660;
+    align-items: center;
     border-radius: 50%;
+    z-index: 10;
+    /* Asegúrate de que las flechas estén por encima de otros elementos */
+}
+
+.sliderBlock_controls__arrow i {
+    color: #fff;
+    /* Asegúrate de que el color del icono sea blanco para contrastar */
+    font-size: 20px;
 }
 
 .sliderBlock_controls__arrow:hover {
     background-color: #536dfe;
-}
-
-.sliderBlock_controls__arrow i {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    margin-left: -50%;
-    margin-top: -50%;
-    color: #fff;
-    transition: 300ms all;
-    font-weight: bold;
-    text-align: center;
-    font-size: 20px;
 }
 
 .sliderBlock_controls__arrowBackward {
@@ -377,18 +408,16 @@ button {
 
 .block_specificationInformation_table tr {
     border-collapse: collapse;
-    border: 1px solid #000;
+
 }
 
 .block_specificationInformation_table th {
-    border: 1px solid #000;
     font-weight: bold;
 }
 
 .block_specificationInformation_table td {
     border-collapse: collapse;
     text-align: center;
-    border: 1px solid #000;
 }
 
 .block_rating {

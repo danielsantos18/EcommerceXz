@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
+import { HistorialPedidosComponent } from './pages/historial-pedidos/historial-pedidos.component';
 
 // Definimos las rutas principales y habilitamos el Lazy Loading
 const routes: Routes = [

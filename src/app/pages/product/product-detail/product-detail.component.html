@@ -3,8 +3,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css'>
-    <!-- IMPORTANTE-->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -14,65 +15,53 @@
                 <div class="productCard_leftSide clearfix">
                     <div class="productCard_brendBlock">
                         <a class="productCard_brendBlock__imageBlock" href="#">
-                            <img src="https://github.com/BlackStar1991/CardProduct/blob/master/app/img/brtendsLogos/logo_sennheiser.png?raw=true"
-                                alt="sennheiser">
+                            <img src="assets/Logo/logo1.png" alt="Logo" class="logo-img">
                         </a>
                     </div>
 
                     <div class="sliderBlock">
+                        <!-- Slider de imágenes -->
                         <ul class="sliderBlock_items">
-                            <li class="sliderBlock_items__itemPhoto sliderBlock_items__showing">
-                                <img src="https://github.com/BlackStar1991/CardProduct/blob/master/app/img/goods/item1/phones1.png?raw=true"
-                                    alt="headphones">
-                            </li>
-                            <li class="sliderBlock_items__itemPhoto">
-                                <img src="https://github.com/BlackStar1991/CardProduct/blob/master/app/img/goods/item1/phones2.png?raw=true"
-                                    alt="headphones">
-                            </li>
-                            <li class="sliderBlock_items__itemPhoto">
-                                <img src="https://github.com/BlackStar1991/CardProduct/blob/master/app/img/goods/item1/phones3.png?raw=true"
-                                    alt="headphones">
-                            </li>
-                            <li class="sliderBlock_items__itemPhoto">
-                                <img src="https://github.com/BlackStar1991/CardProduct/blob/master/app/img/goods/item1/phones4.png?raw=true"
-                                    alt="headphones">
-                            </li>
-                            <li class="sliderBlock_items__itemPhoto">
-                                <img src="https://github.com/BlackStar1991/CardProduct/blob/master/app/img/goods/item1/phones5.png?raw=true"
-                                    alt="headphones">
+                            <li class="sliderBlock_items__itemPhoto" *ngFor="let image of product.images; let i = index"
+                                [class.sliderBlock_items__showing]="i === currentIndex">
+                                <img [src]="getImageUrl(image)" alt="headphones">
                             </li>
                         </ul>
-
 
                         <div class="sliderBlock_controls">
                             <div class="sliderBlock_controls__navigatin">
                                 <div class="sliderBlock_controls__wrapper">
-                                    <div class="sliderBlock_controls__arrow sliderBlock_controls__arrowBackward">
+                                    <!-- Flecha hacia atrás -->
+                                    <div class="sliderBlock_controls__arrow sliderBlock_controls__arrowBackward"
+                                        (click)="moveSlider(-1)">
                                         <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                        <!-- Asegúrate de que este icono sea correcto -->
                                     </div>
-                                    <div class="sliderBlock_controls__arrow sliderBlock_controls__arrowForward">
+                                    <!-- Flecha hacia adelante -->
+                                    <div class="sliderBlock_controls__arrow sliderBlock_controls__arrowForward"
+                                        (click)="moveSlider(1)">
                                         <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        <!-- Asegúrate de que este icono sea correcto -->
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Paginación de imágenes -->
                             <ul class="sliderBlock_positionControls">
-                                <li
-                                    class="sliderBlock_positionControls__paginatorItem sliderBlock_positionControls__active">
+                                <li *ngFor="let image of product.images; let i = index" (click)="goToSlide(i)"
+                                    class="sliderBlock_positionControls__paginatorItem"
+                                    [class.sliderBlock_positionControls__active]="i === currentIndex">
                                 </li>
-                                <li class="sliderBlock_positionControls__paginatorItem"></li>
-                                <li class="sliderBlock_positionControls__paginatorItem"></li>
-                                <li class="sliderBlock_positionControls__paginatorItem"></li>
-                                <li class="sliderBlock_positionControls__paginatorItem"></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="small-12 large-6 columns">
                 <div class="productCard_rightSide">
                     <div class="block_specification">
-                        <div class="block_specification__specificationShow">
+                        <div class="block_specification__specificationShow" (click)="toggleSpecification()">
                             <i class="fa fa-cog block_specification__button block_specification__button__rotate"
                                 aria-hidden="true"></i>
                             <span class="block_specification__text">spec</span>
@@ -97,64 +86,59 @@
                         </p>
 
                         <div class="block_informationAboutDevice">
-
-                            <div class="block_descriptionCharacteristic block_descriptionCharacteristic__disActive">
+                            <!-- Este div será mostrado u ocultado según el estado de showSpecifications -->
+                            <!-- Contenido de las Especificaciones -->
+                            <div class="block_descriptionCharacteristic" [class.active]="isSpecificationVisible">
+                                <h3>Especificaciones del Producto</h3>
+                                <p>Aquí van los detalles del producto...</p>
                                 <table class="block_specificationInformation_table">
                                     <tr>
-                                        <th>Characteristic</th>
-                                        <th>Value</th>
+                                        <th>Característica 1</th>
+                                        <td>Valor 1</td>
                                     </tr>
                                     <tr>
-                                        <td>Ear Coupling</td>
-                                        <td>Around Ear</td>
+                                        <th>Característica 2</th>
+                                        <td>Valor 2</td>
                                     </tr>
                                     <tr>
-                                        <td>Transducer Principle</td>
-                                        <td>Dynamic, Closed-back</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Frequency Response</td>
-                                        <td>16Hz – 22kHz</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sound Pressure Level (SPL)</td>
-                                        <td>113 dB (Passive: 1 kHz/1 Vrms)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Harmonic Distortion (THD)</td>
-                                        <td>&lt;0.5% (1 kHz, 100 dB SPL)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Volume Control</td>
-                                        <td>Earcup control when Bluetooth connected</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Microphone Type</td>
-                                        <td>Dual omni-directional microphone <br>(2 mic beam forming
-                                            array)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cable / Connector</td>
-                                        <td>1.4m (Detachable) / 3.5mm Angled</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Weight</td>
-                                        <td>260g (9.17 oz)</td>
+                                        <th>Característica 3</th>
+                                        <td>Valor 3</td>
                                     </tr>
                                 </table>
                             </div>
 
-
+                            <br>
                             <div class="block_descriptionInformation">
-                                <br>
                                 <p><strong>Categorías:</strong></p>
                                 <ul>
                                     <li *ngFor="let category of categories">{{ category }}</li>
                                 </ul>
-                                <p [ngClass]="{'available': data.available, 'unavailable': !data.available}">
-                                    <strong>{{ data.available ? 'Disponible' : 'No Disponible' }}</strong>
-                                </p>
+                            </div>
+
+                            <br>
+                            <div class="inventories">
+                                <h5>Caracteristicas:</h5>
+                                <div *ngIf="inventories.length > 0; else noInventories">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Color</th>
+                                                <th>Tamaño</th>
+                                                <th>Estado</th> <!-- Mostrar el estado -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let inventory of inventories">
+                                                <td>{{ inventory.color }}</td>
+                                                <td>{{ inventory.size }}</td>
+                                                <td>{{ inventory.status }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <ng-template #noInventories>
+                                    <p>No hay variaciones de inventario disponibles.</p>
+                                </ng-template>
                             </div>
 
                             <div class="block_rating clearfix">

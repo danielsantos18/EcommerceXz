@@ -6,4 +6,5 @@ export interface Product {
     images: string[];
     created_at: string;
     updated_at: string;
+    category_name?: string; // propiedad opcional
 }

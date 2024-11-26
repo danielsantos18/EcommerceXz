@@ -48,21 +48,14 @@
         </button>
 
         <!-- Menú desplegable de categorías -->
-        <div class="dropdown" *ngIf="showCategories">
-            <ul>
-                <li *ngFor="let category of categories" (mouseover)="showSubcategories(category)"
-                    (mouseleave)="hideSubcategories()">
-                    {{ category.name }}
-                    <!-- Subcategorías 
-                    <ul class="subcategories" *ngIf="activeCategory === category">
-                        <li *ngFor="let subcategory of category.subcategories"
-                            (click)="filterProducts(category.name, subcategory)">
-                            {{ subcategory }}
-                        </li>
-                    </ul>-->
-                </li>
-            </ul>
-        </div>
+    <!-- Menú desplegable de categorías -->
+    <div class="dropdown" *ngIf="showCategories">
+        <ul>
+            <li *ngFor="let category of categories" (click)="filterByCategory(category.id)">
+                {{ category.name }}
+            </li>
+        </ul>
+    </div>
     </div>
 
     <!-- Listado de productos -->
@@ -148,14 +141,12 @@
 <!-- Sección de Productos Destacados -->
 <div class="products-container" *ngIf="!showProductDetail">
     <mat-card class="product-card" *ngFor="let product of filteredProducts" (click)="openModal(product)">
-        <!-- Mostrar solo la primera imagen -->
-        <img [src]="'http://localhost:8000' + product.images[0]" alt="Imagen principal de {{ product.name }}" />
+        <img [src]="product.images[0]" alt="Imagen principal de {{ product.name }}" />
         <mat-card-content>
             <h2>{{ product.name }}</h2>
             <p>Precio: {{ product.price | currency }}</p>
         </mat-card-content>
     </mat-card>
-</div>
-
+  </div>
 
 <app-footer></app-footer>

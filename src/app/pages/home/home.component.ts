@@ -101,6 +101,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.activeCategory = null;
   }
 
+  filterByCategory(categoryId: number): void {
+    this.productService.filterProductsByCategory(categoryId).subscribe(
+      (response) => {
+        if (response.status === 200) {
+          // Parsear las imágenes como en el método loadProducts
+          console.log('productos filtrados: ', response);
+          this.filteredProducts = response.data.map((product: any) => {
+            if (typeof product.images === 'string') {
+              product.images = JSON.parse(product.images);
+            }
+            return product;
+          });
+        } else {
+          this.filteredProducts = [];
+          console.warn(response.message);
+        }
+      },
+      (error) => {
+        console.error('Error al filtrar productos:', error);
+      }
+    );
+  }
+
+
   //===================MODAL======================================
   openModal(product: Product): void {
     // Llamamos al servicio para obtener los detalles del producto (si es necesario)
@@ -174,22 +198,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   loadProducts(): void {
     this.productService.getAllProducts().subscribe({
       next: (response) => {
+        console.log('productos cargados', response);
         if (response.status === 200) {
-          // Primero, obtenemos los productos
           this.products = response.data;
-
-          // Luego, parseamos las imágenes que están en formato JSON
+  
           this.products.forEach((product: any) => {
-            if (product.images) {
-              product.images = JSON.parse(product.images);  // Convertimos la cadena JSON en un array
-              console.log('Primera imagen:', product.images[0]);  // Esto debería mostrar solo la primera imagen
+            if (typeof product.images === 'string') {
+              product.images = JSON.parse(product.images);
             }
           });
-
-          // Inicializamos los productos filtrados
+  
           this.filteredProducts = [...this.products];
-
-          console.log(this.products);  // Imprimir productos con las imágenes ya parseadas
         } else {
           console.error('Error al cargar productos', response.message);
         }
@@ -198,14 +217,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error('Error de conexión con la API', error);
       }
     });
-  }
-
-  getFirstImageUrl(product: Product): string | null {
-    if (product.images && product.images.length > 0) {
-      console.log(product.images[0]);
-      return product.images[0];  // Devuelve la primera imagen del producto
-    }
-    return null;
   }
 
   // Filtrar productos según categoría y subcategoría

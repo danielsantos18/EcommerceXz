@@ -1,0 +1,218 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Listas de Productos</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- --------------------------------------------------- -->
+        <!-- Básico -->
+        <!-- --------------------------------------------------- -->
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Productos Básicos</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <mat-list role="list">
+              <mat-list-item role="listitem">Zapatos Deportivos</mat-list-item>
+              <mat-list-item role="listitem">Camisetas de Algodón</mat-list-item>
+              <mat-list-item role="listitem">Chaquetas de Invierno</mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- --------------------------------------------------- -->
+        <!-- Dos líneas -->
+        <!-- --------------------------------------------------- -->
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Detalles del Producto</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <mat-list>
+              <mat-list-item>
+                <span matListItemTitle class="f-s-16 f-w-600">Zapatos Deportivos</span>
+                <span matListItemLine class="mat-body-1">Cómodos y ideales para todo tipo de actividades deportivas.</span>
+              </mat-list-item>
+              <mat-list-item>
+                <span matListItemTitle class="f-s-16 f-w-600">Camisetas de Algodón</span>
+                <span matListItemLine class="mat-body-1">Perfectas para el uso diario y de fácil mantenimiento.</span>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- --------------------------------------------------- -->
+        <!-- Tres líneas -->
+        <!-- --------------------------------------------------- -->
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Más Detalles</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <mat-list>
+              <mat-list-item>
+                <span matListItemTitle class="f-s-16 f-w-600">Chaquetas de Invierno</span>
+                <span matListItemLine class="mat-body-1">Ideal para temperaturas bajas y con aislamiento térmico.</span>
+                <span matListItemLine class="mat-body-1">Disponible en varios colores y tallas.</span>
+              </mat-list-item>
+              <mat-list-item>
+                <span matListItemTitle class="f-s-16 f-w-600">Bolsos de Mano</span>
+                <span matListItemLine class="mat-body-1">Hechos con materiales de alta calidad y con estilo elegante.</span>
+                <span class="mat-body-1">Perfectos para cualquier ocasión.</span>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- --------------------------------------------------- -->
+        <!-- Tres líneas con ajuste de texto -->
+        <!-- --------------------------------------------------- -->
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Productos con Descripción Extendida</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <mat-list style="max-width: 500px">
+              <mat-list-item lines="3">
+                <span matListItemTitle class="f-s-16 f-w-600">Gafas de Sol</span>
+                <span class="mat-body-1">
+                  Gafas de sol con lentes polarizados, ideales para proteger tus ojos de los rayos solares y darle un toque de estilo a tu look.
+                </span>
+              </mat-list-item>
+              <mat-list-item lines="3" class="mat-body-1">
+                <span matListItemTitle class="f-s-16 f-w-600">Auriculares Inalámbricos</span>
+                <span class="mat-body-1">
+                  Auriculares bluetooth con cancelación de ruido, perfectos para disfrutar de tu música favorita sin interrupciones.
+                </span>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- --------------------------------------------------- -->
+        <!-- Lista con selección -->
+        <!-- --------------------------------------------------- -->
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Selección de Categorías</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <mat-selection-list #categories>
+              <mat-list-option *ngFor="let category">
+                {{ category }}
+              </mat-list-option>
+            </mat-selection-list>
+
+            <p class="mat-subtitle-2 f-w-600 p-16 bg-light-primary rounded">
+              Categorías seleccionadas: {{ categories.selectedOptions.selected.length }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- --------------------------------------------------- -->
+        <!-- Lista con selección única -->
+        <!-- --------------------------------------------------- -->
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Selección de Talla</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <mat-selection-list #sizes [multiple]="false">
+              <mat-list-option *ngFor="let size " [value]="size">
+                {{ size }}
+              </mat-list-option>
+            </mat-selection-list>
+
+            <p class="mat-subtitle-2 f-w-600 p-16 bg-light-primary rounded">
+              Talla seleccionada: 
+              {{ sizes.selectedOptions.hasValue() ? sizes.selectedOptions.selected[0].value : "Ninguna" }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-12">
+        <!-- --------------------------------------------------- -->
+        <!-- Lista con secciones -->
+        <!-- --------------------------------------------------- -->
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Productos por Categorías</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <mat-list>
+              <div mat-subheader class="mat-body-2 m-b-16 f-w-600">Zapatos</div>
+              <!-- Productos en Zapatos -->
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Zapatos Deportivos Nike</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Con tecnología de amortiguación para mayor comodidad.</div>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Zapatos Casual Puma</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Diseño moderno y versátil para uso diario.</div>
+              </mat-list-item>
+
+              <mat-divider></mat-divider>
+
+              <div mat-subheader class="mat-body-2 m-y-16 f-w-600">Accesorios</div>
+              <!-- Productos en Accesorios -->
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Reloj Digital Casio</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Resistente al agua y con múltiples funciones.</div>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Gorra Adidas</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Ajustable, perfecta para protegerse del sol.</div>
+              </mat-list-item>
+
+              <mat-divider></mat-divider>
+
+              <div mat-subheader class="mat-body-2 m-y-16 f-w-600">Gafas</div>
+              <!-- Productos en Gafas -->
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Gafas de Sol Ray-Ban</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Lentes polarizados para máxima protección.</div>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Gafas de Sol Oakley</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Diseño deportivo, ideales para actividades al aire libre.</div>
+              </mat-list-item>
+
+              <mat-divider></mat-divider>
+
+              <div mat-subheader class="mat-body-2 m-y-16 f-w-600">Ropa</div>
+              <!-- Productos en Ropa -->
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Camiseta Unisex H&M</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Camiseta de algodón, disponible en varios colores.</div>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon matListItemIcon></mat-icon>
+                <div matListItemTitle class="mat-body-2 f-w-600">Pantalón Levi's</div>
+                <div matListItemLine class="f-s-14 mat-body-1">Pantalón de mezclilla, corte recto, talla 32-36.</div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

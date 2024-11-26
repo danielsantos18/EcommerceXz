@@ -1,0 +1,86 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Notificaciones y Estadísticas</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="b-t-1">
+    <!-- Notificación de Pedidos Pendientes -->
+    <mat-card class="b-1 shadow-none mb-3">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="text-warning">shopping_cart</mat-icon>
+        <mat-card-title class="ml-2">Pedidos Pendientes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="f-w-500 text-muted">
+          Tienes {{pendingOrders}} pedidos pendientes de procesar. <br>
+          <span class="text-info">Revisa los pedidos ahora para evitar retrasos en el envío.</span>
+        </p>
+        <button mat-flat-button color="accent" class="mt-2" (click)="viewPendingOrders()">Ver Pedidos</button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Notificación de Nuevas Reseñas de Productos -->
+    <mat-card class="b-1 shadow-none mb-3">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="text-success">rate_review</mat-icon>
+        <mat-card-title class="ml-2">Nuevas Reseñas de Productos</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="f-w-500 text-muted">
+          Tienes {{newReviews}} nuevas reseñas para tus productos. <br>
+          <span class="text-info">Asegúrate de revisar las opiniones de los clientes para mejorar tu catálogo.</span>
+        </p>
+        <button mat-flat-button color="primary" class="mt-2" (click)="viewReviews()">Ver Reseñas</button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Notificación de Productos con Bajo Stock -->
+    <mat-card class="b-1 shadow-none mb-3">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="text-danger">warning</mat-icon>
+        <mat-card-title class="ml-2">Productos con Bajo Stock</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="f-w-500 text-muted">
+          Hay {{lowStockProducts}} productos con bajo stock. <br>
+          <span class="text-info">¡Es momento de reponer el inventario!</span>
+        </p>
+        <button mat-flat-button color="accent" class="mt-2" (click)="viewLowStockProducts()">Ver Productos</button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Notificación de Nuevos Usuarios Registrados -->
+    <mat-card class="b-1 shadow-none mb-3">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="text-primary">group</mat-icon>
+        <mat-card-title class="ml-2">Nuevos Usuarios Registrados</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="f-w-500 text-muted">
+          Tienes {{newUsers}} nuevos usuarios registrados en tu plataforma. <br>
+          <span class="text-info">¡Bienvenidos! Aprovecha para ofrecerles una experiencia de compra excepcional.</span>
+        </p>
+        <button mat-flat-button color="warn" class="mt-2" (click)="viewNewUsers()">Ver Usuarios</button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Notificación de Ventas con Opción de Ocultar -->
+    <mat-card class="b-1 shadow-none mb-3">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="text-info">notifications</mat-icon>
+        <mat-card-title class="ml-2">Ocultar Notificaciones de Ventas</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          ¿No deseas ver más notificaciones de ventas? <br>
+          <span class="text-info">Puedes ocultar las notificaciones de ventas hasta que haya nuevas
+            actualizaciones.</span>
+        </p>
+        <button mat-flat-button color="warn" class="mt-2" (click)="toggleBadgeVisibility()">
+          {{hidden ? 'Mostrar' : 'Ocultar'}} Notificaciones
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+  </mat-card-content>
+</mat-card>

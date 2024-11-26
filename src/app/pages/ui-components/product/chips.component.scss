@@ -1,0 +1,187 @@
+.example-box.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-chip .cdk-drop-list-dragging {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    .custom-file-upload {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        input[type='file'] {
+            display: none;
+        }
+
+        mat-icon {
+            font-size: 24px;
+            color: #3f51b5;
+        }
+
+        span {
+            font-size: 16px;
+            color: #555;
+        }
+
+        &:hover {
+            border-color: #3f51b5;
+            background-color: #eef3fc;
+        }
+    }
+
+    .file-name {
+        font-size: 14px;
+        color: #666;
+        font-style: italic;
+    }
+
+    .upload-btn {
+        margin-top: 8px;
+    }
+}
+
+.gallery-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    /* Asegura que no se desborde en el contenedor principal */
+    overflow: hidden;
+    /* Evita que el contenido se desborde */
+
+    .gallery {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+
+            &.left-arrow {
+                left: -25px;
+            }
+
+            &.right-arrow {
+                right: -25px;
+            }
+        }
+    }
+
+    .thumbnails {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            object-fit: cover;
+            transition: all 0.3s ease;
+
+            &:hover {
+                border-color: #3f51b5;
+            }
+
+            &.active {
+                border-color: #3f51b5;
+                box-shadow: 0 0 5px #3f51b5;
+            }
+        }
+    }
+}
+
+.thumbnails {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    overflow-x: auto;
+    /* Permite desplazamiento horizontal */
+    padding-bottom: 8px;
+    width: 100%;
+    /* Asegura que las miniaturas se ajusten al contenedor */
+    box-sizing: border-box;
+    /* Incluye padding en el cálculo de tamaño */
+
+    .thumbnail {
+        flex-shrink: 0;
+        /* Evita que las miniaturas cambien de tamaño */
+        width: 60px;
+        height: 60px;
+        border: 2px solid transparent;
+        border-radius: 5px;
+        cursor: pointer;
+        object-fit: cover;
+        transition: all 0.3s ease;
+    }
+
+    /* Estilos de la barra de desplazamiento */
+    &::-webkit-scrollbar {
+        height: 8px;
+        /* Ajusta el grosor del scrollbar */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #3f51b5;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+        border-radius: 4px;
+    }
+}
+
+.filter-input {
+    width: 300px;
+    margin: 0px 30px;
+}
+
+.mat-form-field {
+    width: 100%;
+    /* Asegura que los campos ocupen todo el espacio disponible en su contenedor */
+}
+
+@media (max-width: 600px) {
+    .filter-container {
+        flex-direction: column;
+        /* Los elementos se apilan en pantallas más pequeñas */
+        align-items: center;
+        /* Centra los elementos verticalmente en pantallas pequeñas */
+    }
+}
+
+mat-card-title {
+    margin: 10px;
+}

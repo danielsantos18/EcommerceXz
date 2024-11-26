@@ -1,0 +1,127 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Menú de Navegación</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div class="row">
+      <!-- Menú Básico -->
+      <div class="col-sm-6 col-lg-4">
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Menú Básico</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <button mat-flat-button color="primary" class="m-t-8" [matMenuTriggerFor]="basicMenu">
+              <mat-icon>category</mat-icon> Categorías
+            </button>
+            <mat-menu #basicMenu="matMenu" class="cardWithShadow">
+              <button mat-menu-item>Zapatos</button>
+              <button mat-menu-item>Ropa</button>
+              <button mat-menu-item>Accesorios</button>
+              <button mat-menu-item>Gafas</button>
+            </mat-menu>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Menú con Íconos -->
+      <div class="col-sm-6 col-lg-4">
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Menú con Íconos</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <button mat-icon-button [matMenuTriggerFor]="iconMenu" aria-label="Menú con iconos">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #iconMenu="matMenu" class="cardWithShadow">
+              <button mat-menu-item>Zapatos</button>
+              <button mat-menu-item>Ropa</button>
+              <button mat-menu-item>Accesorios</button>
+              <button mat-menu-item>Gafas</button>
+            </mat-menu>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Menú Anidado -->
+      <div class="col-sm-6 col-lg-4">
+        <mat-card class="b-1 shadow-none">
+          <mat-card-header>
+            <mat-card-title>Menú Anidado</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="b-t-1">
+            <button mat-flat-button color="primary" [matMenuTriggerFor]="productMenu" class="m-t-8">
+              <mat-icon>apps</mat-icon> Productos por Categoría
+            </button>
+            <mat-menu #productMenu="matMenu" class="cardWithShadow">
+              <button mat-menu-item [matMenuTriggerFor]="shoesMenu">Zapatos</button>
+              <button mat-menu-item [matMenuTriggerFor]="clothesMenu">Ropa</button>
+              <button mat-menu-item [matMenuTriggerFor]="accessoriesMenu">Accesorios</button>
+            </mat-menu>
+
+            <!-- Menús anidados -->
+            <mat-menu #shoesMenu="matMenu">
+              <button mat-menu-item>Deportivos</button>
+              <button mat-menu-item>Casuales</button>
+              <button mat-menu-item>Formales</button>
+            </mat-menu>
+
+            <mat-menu #clothesMenu="matMenu">
+              <button mat-menu-item>Camisetas</button>
+              <button mat-menu-item>Pantalones</button>
+              <button mat-menu-item>Chaquetas</button>
+              <button mat-menu-item>Vestidos</button>
+            </mat-menu>
+
+            <mat-menu #accessoriesMenu="matMenu">
+              <button mat-menu-item>Bolsos</button>
+              <button mat-menu-item>Sombreros</button>
+              <button mat-menu-item>Gorros</button>
+              <button mat-menu-item>Guantes</button>
+            </mat-menu>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Gráficos Financieros -->
+    <div class="mt-4">
+      <mat-card class="cardWithShadow theme-card">
+        <mat-card-header>
+          <mat-card-title>Gráficos Financieros</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="b-t-1">
+          <div class="row">
+            <!-- Gráfico de Ingresos -->
+            <div class="col-md-6">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Ingresos Mensuales</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <apx-chart [series]="incomeSeries" [chart]="incomeChart" [xaxis]="incomeXaxis"
+                    [dataLabels]="incomeDataLabels">
+                  </apx-chart>
+
+                </mat-card-content>
+              </mat-card>
+            </div>
+
+            <!-- Gráfico de Distribución -->
+            <div class="col-md-6">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Distribución de Gastos</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <apx-chart [series]="expenseSeries" [chart]="expenseChart" [labels]="expenseLabels"></apx-chart>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>

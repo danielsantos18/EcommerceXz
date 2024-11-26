@@ -33,9 +33,19 @@ export const navItems: NavItem[] = [
     route: '/ui-components/menu',
   },
   {
-    displayName: 'Tooltips',
+    displayName: 'Clientes',
     iconName: 'tooltip',
-    route: '/ui-components/tooltips',
+    route: '/ui-components/cliente',
+  },
+  {
+    displayName: 'Inventarios',
+    iconName: 'assets/images/logos/inventario.png', 
+    route: '/ui-components/inventarios',
+  },
+  {
+    displayName: 'Pedidos',
+    iconName: 'shopping-cart',
+    route: '/ui-components/pedidos',
   },
   {
     navCap: 'Auth',
@@ -45,25 +55,10 @@ export const navItems: NavItem[] = [
     iconName: 'lock',
     route: '/authentication/login',
   },
-
   {
     displayName: 'Logout',
     iconName: 'user-plus',
     route: '/authentication/register',
   },
-   /* 
-    {
-      navCap: 'Extra',
-    },
-    {
-      displayName: 'Icons',
-      iconName: 'mood-smile',
-      route: '/extra/icons',
-    },
-    {
-      displayName: 'Sample Page',
-      iconName: 'aperture',
-      route: '/extra/sample-page',
-    },
-    */
+  
 ];

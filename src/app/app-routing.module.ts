@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: 'dashboard',  // Asegurando que la ruta por defecto sea correcta
         pathMatch: 'full',
       },
       {
@@ -25,8 +25,6 @@ const routes: Routes = [
             (m) => m.UicomponentsModule
           ),
       },
-      
-      
     ],
   },
   {
@@ -42,6 +40,11 @@ const routes: Routes = [
       },
     ],
   },
+  // Agregar una ruta wildcard en caso de ruta no encontrada
+  {
+    path: '**',
+    redirectTo: '/dashboard', // Redirige a dashboard si no se encuentra ninguna ruta
+  }
 ];
 
 @NgModule({
@@ -49,3 +52,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+ 

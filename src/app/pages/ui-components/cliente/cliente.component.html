@@ -1,0 +1,84 @@
+<div class="cliente-dashboard">
+    <h1 class="title">Dashboard de Clientes</h1>
+    
+    <!-- Resumen General -->
+    <div class="summary">
+      <div class="card">
+        <h3>Total de Clientes</h3>
+        <p>{{ totalClientes }}</p>
+      </div>
+      <div class="card">
+        <h3>Clientes Activos</h3>
+        <p>{{ clientesActivos }}</p>
+      </div>
+      <div class="card">
+        <h3>Nuevos Registros</h3>
+        <p>{{ nuevosRegistros }}</p>
+      </div>
+      <div class="card">
+        <h3>Clientes Inactivos</h3>
+        <p>{{ clientesInactivos }}</p>
+      </div>
+    </div>
+  
+    <!-- Clientes Más Activos -->
+    <section class="active-clients">
+      <h2>Top 5 Clientes Más Activos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Actividad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of topClientes">
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.actividad }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  
+    <!-- Clientes Menos Activos -->
+    <section class="inactive-clients">
+      <h2>Top 5 Clientes Menos Activos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Última Actividad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientesInactivosList">
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.ultimaActividad }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  
+    <!-- Segmentación de Clientes -->
+    <section class="client-segment">
+      <h2>Segmentación de Clientes</h2>
+      <div class="segment-card">
+        <h4>Frecuentes</h4>
+        <p>{{ clientesFrecuentes.length }} clientes</p>
+      </div>
+      <div class="segment-card">
+        <h4>Ocasionales</h4>
+        <p>{{ clientesOcasionales.length }} clientes</p>
+      </div>
+      
+    </section>
+  
+   
+  
+    <!-- Acciones Administrativas -->
+    <section class="admin-actions">
+      <button (click)="verDetallesCliente()">Ver Detalles</button>
+      <button (click)="exportarDatos()">Exportar Datos</button>
+    </section>
+  </div>
+  

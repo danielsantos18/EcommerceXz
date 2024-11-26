@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
+// Para manejar formularios
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// Módulo para `*ngFor` y pipes como `date`
+import { CommonModule } from '@angular/common';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -12,7 +17,6 @@ import * as TablerIcons from 'angular-tabler-icons/icons';
 
 //Import all material modules
 import { MaterialModule } from './material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 //Import Layouts
@@ -45,6 +49,7 @@ import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.co
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
     NgScrollbarModule,
+    CommonModule,  
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

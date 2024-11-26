@@ -1,0 +1,66 @@
+<p>Pedidos works!</p>
+<div class="pedidos-dashboard">
+  <h1 class="title">Dashboard de Pedidos</h1>
+  
+  <!-- Resumen General -->
+  <div class="summary">
+    <div class="card">
+      <h3>Total de Pedidos</h3>
+      <p>{{ totalPedidos }}</p>
+    </div>
+    <div class="card">
+      <h3>Pedidos Pendientes</h3>
+      <p>{{ pedidosPendientes }}</p>
+    </div>
+    <div class="card">
+      <h3>Pedidos Completados</h3>
+      <p>{{ pedidosCompletados }}</p>
+    </div>
+    <div class="card">
+      <h3>Valor Total de Pedidos</h3>
+      <p>{{ valorTotalPedidos | currency }}</p>
+    </div>
+  </div>
+
+  <!-- Filtros y Búsqueda -->
+  <section class="filters">
+    <input type="text" placeholder="Buscar por ID o Cliente" [value]="searchQuery" (input)="onSearchChange($event)">
+    <button (click)="filtrarPedidos()">Buscar</button>
+  </section>
+
+  <!-- Lista de Pedidos Recientes -->
+  <section class="recent-orders">
+    <h2>Pedidos Recientes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID Pedido</th>
+          <th>Cliente</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidosRecientes">
+          <td>{{ pedido.id }}</td>
+          <td>{{ pedido.cliente }}</td>
+          <td>{{ pedido.fecha }}</td>
+          <td>{{ pedido.estado }}</td>
+          <td>{{ pedido.total | currency }}</td>
+          <td>
+            <button (click)="verDetalles(pedido.id)">Ver Detalles</button>
+            <button (click)="cambiarEstado(pedido.id, 'Enviado')">Marcar como Enviado</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Acciones Administrativas -->
+  <section class="admin-actions">
+    <button (click)="agregarPedido()">Agregar Pedido</button>
+    <button (click)="reembolsarPedido()">Reembolsar Pedido</button>
+  </section>
+</div>

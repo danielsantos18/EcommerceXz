@@ -12,11 +12,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { HistorialPedidosComponent } from './pages/historial-pedidos/historial-pedidos.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     ProductDetailComponent,
-    HistorialPedidosComponent, 
+    HistorialPedidosComponent,
+    
   ],
   imports: [
     BrowserModule,
